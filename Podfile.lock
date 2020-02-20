@@ -1,0 +1,20 @@
+PODS:
+  - CouchbaseLite-Swift-Enterprise (2.7.0)
+  - TinyConstraints (4.0.1)
+
+DEPENDENCIES:
+  - CouchbaseLite-Swift-Enterprise (~> 2.7.0)
+  - TinyConstraints (~> 4.0.1)
+
+SPEC REPOS:
+  trunk:
+    - CouchbaseLite-Swift-Enterprise
+    - TinyConstraints
+
+SPEC CHECKSUMS:
+  CouchbaseLite-Swift-Enterprise: 43472e7810b6ed30304c77f8cd00ceee6489d746
+  TinyConstraints: 8dd91295e56797648c7bc335dd20e1d91ec4c192
+
+PODFILE CHECKSUM: 2506eb0d47e974853df0ea36610b4c9b9c99b3b8
+
+COCOAPODS: 1.8.4

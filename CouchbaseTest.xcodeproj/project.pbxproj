@@ -1,0 +1,998 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 51;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		46C3D350907EC9CD1FD02F46 /* Pods_CouchbaseTestTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 81093380C3BCACBEDAFA900D /* Pods_CouchbaseTestTests.framework */; };
+		A809B24923FD7DF5001FF71E /* Data.swift in Sources */ = {isa = PBXBuildFile; fileRef = A809B24823FD7DF5001FF71E /* Data.swift */; };
+		A81107F323D86BF400B57772 /* RootViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A81107F223D86BF400B57772 /* RootViewController.swift */; };
+		A8176D8423FAEC4800A37CC2 /* DataChatMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8176D8323FAEC4800A37CC2 /* DataChatMessage.swift */; };
+		A82155CE23D9DABE0029E7D7 /* MainPeerToPeerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A82155CD23D9DABE0029E7D7 /* MainPeerToPeerViewController.swift */; };
+		A82155D023D9DAD70029E7D7 /* MainPeerToPeerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A82155CF23D9DAD70029E7D7 /* MainPeerToPeerViewModel.swift */; };
+		A82155D223D9FADA0029E7D7 /* UIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A82155D123D9FADA0029E7D7 /* UIViewController.swift */; };
+		A82155D823DAF9A10029E7D7 /* MultiPeerConnectivityManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A82155D723DAF9A10029E7D7 /* MultiPeerConnectivityManager.swift */; };
+		A82155DC23DB460C0029E7D7 /* MessageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A82155DB23DB460C0029E7D7 /* MessageTableViewCell.swift */; };
+		A830993A23CF2EB400581FF5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A830993923CF2EB400581FF5 /* AppDelegate.swift */; };
+		A830993E23CF2EB400581FF5 /* MasterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A830993D23CF2EB400581FF5 /* MasterViewController.swift */; };
+		A830994323CF2EB500581FF5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A830994223CF2EB500581FF5 /* Assets.xcassets */; };
+		A830994623CF2EB500581FF5 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A830994423CF2EB500581FF5 /* LaunchScreen.storyboard */; };
+		A830995123CF2EB600581FF5 /* CouchbaseTestTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A830995023CF2EB600581FF5 /* CouchbaseTestTests.swift */; };
+		A833242423D88EC200E3FA74 /* PeerToPeerFlowCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = A833242323D88EC200E3FA74 /* PeerToPeerFlowCoordinator.swift */; };
+		A833242723D88EE300E3FA74 /* PeerToPeerFlowCoordinatorProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = A833242623D88EE300E3FA74 /* PeerToPeerFlowCoordinatorProtocol.swift */; };
+		A84F309023D0A58C00FEEDC6 /* PersonRepositoryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = A84F308F23D0A58C00FEEDC6 /* PersonRepositoryProtocol.swift */; };
+		A84FCB8023D5EDE700B2044F /* BeerRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = A84FCB7F23D5EDE700B2044F /* BeerRepository.swift */; };
+		A84FCB8223D5F00A00B2044F /* DataBeer.swift in Sources */ = {isa = PBXBuildFile; fileRef = A84FCB8123D5F00A00B2044F /* DataBeer.swift */; };
+		A84FCB8423D5F77600B2044F /* Beer.swift in Sources */ = {isa = PBXBuildFile; fileRef = A84FCB8323D5F77600B2044F /* Beer.swift */; };
+		A84FCB8723D604AE00B2044F /* BeerRepositoryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = A84FCB8623D604AE00B2044F /* BeerRepositoryProtocol.swift */; };
+		A84FCB8923D6052F00B2044F /* BeerUseCases.swift in Sources */ = {isa = PBXBuildFile; fileRef = A84FCB8823D6052F00B2044F /* BeerUseCases.swift */; };
+		A84FCB8C23D60B8100B2044F /* BeerMasterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A84FCB8B23D60B8100B2044F /* BeerMasterViewController.swift */; };
+		A84FCB8E23D60C0100B2044F /* BeerMasterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A84FCB8D23D60C0100B2044F /* BeerMasterViewModel.swift */; };
+		A84FCB9123D60E3900B2044F /* BeerDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A84FCB9023D60E3900B2044F /* BeerDetailViewController.swift */; };
+		A84FCB9323D60E4400B2044F /* BeerDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A84FCB9223D60E4400B2044F /* BeerDetailViewModel.swift */; };
+		A84FCB9523D7196500B2044F /* AddBeerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A84FCB9423D7196500B2044F /* AddBeerViewController.swift */; };
+		A855AC1723F5B55300230CCC /* PeersUseCases.swift in Sources */ = {isa = PBXBuildFile; fileRef = A855AC1623F5B55300230CCC /* PeersUseCases.swift */; };
+		A855AC1923F5B58700230CCC /* PeersRepositoryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = A855AC1823F5B58700230CCC /* PeersRepositoryProtocol.swift */; };
+		A855AC1C23F6B29100230CCC /* PeerManagerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = A855AC1B23F6B29100230CCC /* PeerManagerProtocol.swift */; };
+		A8673E7C23CF5466000E7CE6 /* Person.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8673E7B23CF5466000E7CE6 /* Person.swift */; };
+		A8673E8223CF5F72000E7CE6 /* DataPerson.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8673E8123CF5F72000E7CE6 /* DataPerson.swift */; };
+		A8673E8623CF5FDD000E7CE6 /* MasterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8673E8523CF5FDD000E7CE6 /* MasterViewModel.swift */; };
+		A8673E8A23CF6045000E7CE6 /* PersonRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8673E8923CF6045000E7CE6 /* PersonRepository.swift */; };
+		A8673E8D23CF6093000E7CE6 /* RootFlowCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8673E8C23CF6093000E7CE6 /* RootFlowCoordinator.swift */; };
+		A8673E8F23CF60B9000E7CE6 /* FlowCoordinatorProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8673E8E23CF60B9000E7CE6 /* FlowCoordinatorProtocol.swift */; };
+		A8673E9423CF63F6000E7CE6 /* MasterDetailFlowCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8673E9323CF63F6000E7CE6 /* MasterDetailFlowCoordinator.swift */; };
+		A8673E9623CF6415000E7CE6 /* MasterDetailFlowCoordinatorProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8673E9523CF6415000E7CE6 /* MasterDetailFlowCoordinatorProtocol.swift */; };
+		A8673E9C23CF68AB000E7CE6 /* PersonUseCases.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8673E9B23CF68AB000E7CE6 /* PersonUseCases.swift */; };
+		A8673EA023CF696F000E7CE6 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8673E9F23CF696F000E7CE6 /* DetailViewController.swift */; };
+		A8673EA223CF69BE000E7CE6 /* DetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8673EA123CF69BE000E7CE6 /* DetailViewModel.swift */; };
+		A8673EA423CF6E5C000E7CE6 /* RootFlowCoordinatorProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8673EA323CF6E5C000E7CE6 /* RootFlowCoordinatorProtocol.swift */; };
+		A86A590723D075CA001344F7 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A86A590623D075C9001344F7 /* SceneDelegate.swift */; };
+		A89E7A3D23FAB51800737006 /* PassiveChatPeerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A89E7A3C23FAB51800737006 /* PassiveChatPeerViewController.swift */; };
+		A89E7A3F23FAB80700737006 /* ChatMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = A89E7A3E23FAB80700737006 /* ChatMessage.swift */; };
+		A8B4F46C23F178B600C7FDAA /* PeersRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8B4F46B23F178B600C7FDAA /* PeersRepository.swift */; };
+		A8B4F47323F1933000C7FDAA /* ActiveChatPeerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8B4F47223F1933000C7FDAA /* ActiveChatPeerViewController.swift */; };
+		A8B4F47523F1934000C7FDAA /* ChatPeerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8B4F47423F1934000C7FDAA /* ChatPeerViewModel.swift */; };
+		A8E1422123FA9F66008262C0 /* Formatters.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8E1422023FA9F66008262C0 /* Formatters.swift */; };
+		A8E61D0423F5528100D56016 /* ActivePeerManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8E61D0323F5528100D56016 /* ActivePeerManager.swift */; };
+		A8E61D0723F5917E00D56016 /* PassivePeerManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8E61D0623F5917E00D56016 /* PassivePeerManager.swift */; };
+		A8E88FDC23FA94CD00C19548 /* Factory.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8E88FD923FA94CD00C19548 /* Factory.swift */; };
+		A8E88FDD23FA94CD00C19548 /* FactoryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8E88FDA23FA94CD00C19548 /* FactoryProtocol.swift */; };
+		A8E88FDE23FA94CD00C19548 /* ViewControllerDependencyResolver.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8E88FDB23FA94CD00C19548 /* ViewControllerDependencyResolver.swift */; };
+		A8E88FE223FA94E700C19548 /* Controllers.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8E88FDF23FA94E700C19548 /* Controllers.swift */; };
+		A8E88FE323FA94E700C19548 /* TextFieldsKeyboardManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8E88FE023FA94E700C19548 /* TextFieldsKeyboardManager.swift */; };
+		A8E88FE423FA94E700C19548 /* ModelMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8E88FE123FA94E700C19548 /* ModelMapper.swift */; };
+		A8F3E7CD23F1BE0300A9F5B4 /* PeerConnection.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8F3E7CC23F1BE0300A9F5B4 /* PeerConnection.swift */; };
+		C31DE8BDF8DFA9D7EA508FAA /* Pods_CouchbaseTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DCBA965BEB09A52EBB79FCD5 /* Pods_CouchbaseTest.framework */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		A830994D23CF2EB600581FF5 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = A830992E23CF2EB400581FF5 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = A830993523CF2EB400581FF5;
+			remoteInfo = CouchbaseTest;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		1593D69DE6A69D87A4FD7273 /* Pods-CouchbaseTest.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CouchbaseTest.release.xcconfig"; path = "Target Support Files/Pods-CouchbaseTest/Pods-CouchbaseTest.release.xcconfig"; sourceTree = "<group>"; };
+		2A7E07ABD24944D629801C92 /* Pods-CouchbaseTestTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CouchbaseTestTests.debug.xcconfig"; path = "Target Support Files/Pods-CouchbaseTestTests/Pods-CouchbaseTestTests.debug.xcconfig"; sourceTree = "<group>"; };
+		81093380C3BCACBEDAFA900D /* Pods_CouchbaseTestTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CouchbaseTestTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		A809B24823FD7DF5001FF71E /* Data.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Data.swift; sourceTree = "<group>"; };
+		A81107F223D86BF400B57772 /* RootViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootViewController.swift; sourceTree = "<group>"; };
+		A8176D8323FAEC4800A37CC2 /* DataChatMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataChatMessage.swift; sourceTree = "<group>"; };
+		A82155CD23D9DABE0029E7D7 /* MainPeerToPeerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainPeerToPeerViewController.swift; sourceTree = "<group>"; };
+		A82155CF23D9DAD70029E7D7 /* MainPeerToPeerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainPeerToPeerViewModel.swift; sourceTree = "<group>"; };
+		A82155D123D9FADA0029E7D7 /* UIViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewController.swift; sourceTree = "<group>"; };
+		A82155D723DAF9A10029E7D7 /* MultiPeerConnectivityManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultiPeerConnectivityManager.swift; sourceTree = "<group>"; };
+		A82155DB23DB460C0029E7D7 /* MessageTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageTableViewCell.swift; sourceTree = "<group>"; };
+		A830993623CF2EB400581FF5 /* CouchbaseTest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CouchbaseTest.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		A830993923CF2EB400581FF5 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		A830993D23CF2EB400581FF5 /* MasterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MasterViewController.swift; sourceTree = "<group>"; };
+		A830994223CF2EB500581FF5 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		A830994523CF2EB500581FF5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		A830994723CF2EB500581FF5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		A830994C23CF2EB600581FF5 /* CouchbaseTestTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CouchbaseTestTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		A830995023CF2EB600581FF5 /* CouchbaseTestTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CouchbaseTestTests.swift; sourceTree = "<group>"; };
+		A830995223CF2EB600581FF5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		A833242323D88EC200E3FA74 /* PeerToPeerFlowCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeerToPeerFlowCoordinator.swift; sourceTree = "<group>"; };
+		A833242623D88EE300E3FA74 /* PeerToPeerFlowCoordinatorProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeerToPeerFlowCoordinatorProtocol.swift; sourceTree = "<group>"; };
+		A84F308F23D0A58C00FEEDC6 /* PersonRepositoryProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonRepositoryProtocol.swift; sourceTree = "<group>"; };
+		A84FCB7F23D5EDE700B2044F /* BeerRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BeerRepository.swift; sourceTree = "<group>"; };
+		A84FCB8123D5F00A00B2044F /* DataBeer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataBeer.swift; sourceTree = "<group>"; };
+		A84FCB8323D5F77600B2044F /* Beer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Beer.swift; sourceTree = "<group>"; };
+		A84FCB8623D604AE00B2044F /* BeerRepositoryProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BeerRepositoryProtocol.swift; sourceTree = "<group>"; };
+		A84FCB8823D6052F00B2044F /* BeerUseCases.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BeerUseCases.swift; sourceTree = "<group>"; };
+		A84FCB8B23D60B8100B2044F /* BeerMasterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BeerMasterViewController.swift; sourceTree = "<group>"; };
+		A84FCB8D23D60C0100B2044F /* BeerMasterViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BeerMasterViewModel.swift; sourceTree = "<group>"; };
+		A84FCB9023D60E3900B2044F /* BeerDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BeerDetailViewController.swift; sourceTree = "<group>"; };
+		A84FCB9223D60E4400B2044F /* BeerDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BeerDetailViewModel.swift; sourceTree = "<group>"; };
+		A84FCB9423D7196500B2044F /* AddBeerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddBeerViewController.swift; sourceTree = "<group>"; };
+		A855AC1623F5B55300230CCC /* PeersUseCases.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeersUseCases.swift; sourceTree = "<group>"; };
+		A855AC1823F5B58700230CCC /* PeersRepositoryProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeersRepositoryProtocol.swift; sourceTree = "<group>"; };
+		A855AC1B23F6B29100230CCC /* PeerManagerProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeerManagerProtocol.swift; sourceTree = "<group>"; };
+		A8673E7B23CF5466000E7CE6 /* Person.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Person.swift; sourceTree = "<group>"; };
+		A8673E8123CF5F72000E7CE6 /* DataPerson.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataPerson.swift; sourceTree = "<group>"; };
+		A8673E8523CF5FDD000E7CE6 /* MasterViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MasterViewModel.swift; sourceTree = "<group>"; };
+		A8673E8923CF6045000E7CE6 /* PersonRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonRepository.swift; sourceTree = "<group>"; };
+		A8673E8C23CF6093000E7CE6 /* RootFlowCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootFlowCoordinator.swift; sourceTree = "<group>"; };
+		A8673E8E23CF60B9000E7CE6 /* FlowCoordinatorProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlowCoordinatorProtocol.swift; sourceTree = "<group>"; };
+		A8673E9323CF63F6000E7CE6 /* MasterDetailFlowCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MasterDetailFlowCoordinator.swift; sourceTree = "<group>"; };
+		A8673E9523CF6415000E7CE6 /* MasterDetailFlowCoordinatorProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MasterDetailFlowCoordinatorProtocol.swift; sourceTree = "<group>"; };
+		A8673E9B23CF68AB000E7CE6 /* PersonUseCases.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonUseCases.swift; sourceTree = "<group>"; };
+		A8673E9F23CF696F000E7CE6 /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
+		A8673EA123CF69BE000E7CE6 /* DetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewModel.swift; sourceTree = "<group>"; };
+		A8673EA323CF6E5C000E7CE6 /* RootFlowCoordinatorProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootFlowCoordinatorProtocol.swift; sourceTree = "<group>"; };
+		A86A590623D075C9001344F7 /* SceneDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
+		A89E7A3C23FAB51800737006 /* PassiveChatPeerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PassiveChatPeerViewController.swift; sourceTree = "<group>"; };
+		A89E7A3E23FAB80700737006 /* ChatMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatMessage.swift; sourceTree = "<group>"; };
+		A8B4F46B23F178B600C7FDAA /* PeersRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeersRepository.swift; sourceTree = "<group>"; };
+		A8B4F47223F1933000C7FDAA /* ActiveChatPeerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActiveChatPeerViewController.swift; sourceTree = "<group>"; };
+		A8B4F47423F1934000C7FDAA /* ChatPeerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatPeerViewModel.swift; sourceTree = "<group>"; };
+		A8E1422023FA9F66008262C0 /* Formatters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Formatters.swift; sourceTree = "<group>"; };
+		A8E61D0323F5528100D56016 /* ActivePeerManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivePeerManager.swift; sourceTree = "<group>"; };
+		A8E61D0623F5917E00D56016 /* PassivePeerManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PassivePeerManager.swift; sourceTree = "<group>"; };
+		A8E88FD923FA94CD00C19548 /* Factory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Factory.swift; path = CouchbaseTest/Factory/Factory.swift; sourceTree = SOURCE_ROOT; };
+		A8E88FDA23FA94CD00C19548 /* FactoryProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FactoryProtocol.swift; path = CouchbaseTest/Factory/FactoryProtocol.swift; sourceTree = SOURCE_ROOT; };
+		A8E88FDB23FA94CD00C19548 /* ViewControllerDependencyResolver.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ViewControllerDependencyResolver.swift; path = CouchbaseTest/Factory/ViewControllerDependencyResolver.swift; sourceTree = SOURCE_ROOT; };
+		A8E88FDF23FA94E700C19548 /* Controllers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Controllers.swift; path = CouchbaseTest/Utilities/Controllers.swift; sourceTree = SOURCE_ROOT; };
+		A8E88FE023FA94E700C19548 /* TextFieldsKeyboardManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TextFieldsKeyboardManager.swift; path = CouchbaseTest/Utilities/TextFieldsKeyboardManager.swift; sourceTree = SOURCE_ROOT; };
+		A8E88FE123FA94E700C19548 /* ModelMapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ModelMapper.swift; path = CouchbaseTest/Utilities/ModelMapper.swift; sourceTree = SOURCE_ROOT; };
+		A8F3E7CC23F1BE0300A9F5B4 /* PeerConnection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeerConnection.swift; sourceTree = "<group>"; };
+		CC17CEB49C787F5972969F53 /* Pods-CouchbaseTestTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CouchbaseTestTests.release.xcconfig"; path = "Target Support Files/Pods-CouchbaseTestTests/Pods-CouchbaseTestTests.release.xcconfig"; sourceTree = "<group>"; };
+		DCBA965BEB09A52EBB79FCD5 /* Pods_CouchbaseTest.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CouchbaseTest.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		EB786CFCB0B7BBDEA751AAC4 /* Pods-CouchbaseTest.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CouchbaseTest.debug.xcconfig"; path = "Target Support Files/Pods-CouchbaseTest/Pods-CouchbaseTest.debug.xcconfig"; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		A830993323CF2EB400581FF5 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C31DE8BDF8DFA9D7EA508FAA /* Pods_CouchbaseTest.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A830994923CF2EB600581FF5 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				46C3D350907EC9CD1FD02F46 /* Pods_CouchbaseTestTests.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		0E6528DD7A7FA23C8C19432D /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				EB786CFCB0B7BBDEA751AAC4 /* Pods-CouchbaseTest.debug.xcconfig */,
+				1593D69DE6A69D87A4FD7273 /* Pods-CouchbaseTest.release.xcconfig */,
+				2A7E07ABD24944D629801C92 /* Pods-CouchbaseTestTests.debug.xcconfig */,
+				CC17CEB49C787F5972969F53 /* Pods-CouchbaseTestTests.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
+		A81107F023D8695900B57772 /* CRUD */ = {
+			isa = PBXGroup;
+			children = (
+				A8673E8323CF5FB6000E7CE6 /* Master */,
+				A84FCB8A23D60B4E00B2044F /* BeerMaster */,
+				A84FCB8F23D60E2000B2044F /* BeerDetail */,
+				A8673E9023CF60C1000E7CE6 /* Protocols */,
+				A8673E8423CF5FC1000E7CE6 /* Detail */,
+				A8673E9323CF63F6000E7CE6 /* MasterDetailFlowCoordinator.swift */,
+			);
+			path = CRUD;
+			sourceTree = "<group>";
+		};
+		A81107F423D8722700B57772 /* Root */ = {
+			isa = PBXGroup;
+			children = (
+				A8673E8C23CF6093000E7CE6 /* RootFlowCoordinator.swift */,
+				A8673EA323CF6E5C000E7CE6 /* RootFlowCoordinatorProtocol.swift */,
+				A81107F223D86BF400B57772 /* RootViewController.swift */,
+			);
+			path = Root;
+			sourceTree = "<group>";
+		};
+		A82155CC23D9DA7A0029E7D7 /* MainPeerToPeer */ = {
+			isa = PBXGroup;
+			children = (
+				A82155CD23D9DABE0029E7D7 /* MainPeerToPeerViewController.swift */,
+				A82155CF23D9DAD70029E7D7 /* MainPeerToPeerViewModel.swift */,
+			);
+			path = MainPeerToPeer;
+			sourceTree = "<group>";
+		};
+		A830992D23CF2EB400581FF5 = {
+			isa = PBXGroup;
+			children = (
+				A830993823CF2EB400581FF5 /* CouchbaseTest */,
+				A830994F23CF2EB600581FF5 /* CouchbaseTestTests */,
+				A830993723CF2EB400581FF5 /* Products */,
+				0E6528DD7A7FA23C8C19432D /* Pods */,
+				EB9DB8D9178C1D94F53338D0 /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		A830993723CF2EB400581FF5 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				A830993623CF2EB400581FF5 /* CouchbaseTest.app */,
+				A830994C23CF2EB600581FF5 /* CouchbaseTestTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		A830993823CF2EB400581FF5 /* CouchbaseTest */ = {
+			isa = PBXGroup;
+			children = (
+				A8E1422223FAA747008262C0 /* CouchbaseP2P */,
+				A8B4F47623F1965700C7FDAA /* Factory */,
+				A8B4F47923F1985200C7FDAA /* MultiPeerConnectivity */,
+				A8673E7F23CF5F4C000E7CE6 /* Data */,
+				A8673E7D23CF5DD5000E7CE6 /* Domain */,
+				A8673E7923CF5396000E7CE6 /* SupportFiles */,
+				A8673E7E23CF5DE2000E7CE6 /* UI */,
+				A8B4F46D23F18E2A00C7FDAA /* Utilities */,
+			);
+			path = CouchbaseTest;
+			sourceTree = "<group>";
+		};
+		A830994F23CF2EB600581FF5 /* CouchbaseTestTests */ = {
+			isa = PBXGroup;
+			children = (
+				A830995023CF2EB600581FF5 /* CouchbaseTestTests.swift */,
+				A830995223CF2EB600581FF5 /* Info.plist */,
+			);
+			path = CouchbaseTestTests;
+			sourceTree = "<group>";
+		};
+		A84FCB8523D6043A00B2044F /* Protocols */ = {
+			isa = PBXGroup;
+			children = (
+				A84FCB8623D604AE00B2044F /* BeerRepositoryProtocol.swift */,
+				A855AC1823F5B58700230CCC /* PeersRepositoryProtocol.swift */,
+				A84F308F23D0A58C00FEEDC6 /* PersonRepositoryProtocol.swift */,
+			);
+			path = Protocols;
+			sourceTree = "<group>";
+		};
+		A84FCB8A23D60B4E00B2044F /* BeerMaster */ = {
+			isa = PBXGroup;
+			children = (
+				A84FCB8B23D60B8100B2044F /* BeerMasterViewController.swift */,
+				A84FCB8D23D60C0100B2044F /* BeerMasterViewModel.swift */,
+			);
+			path = BeerMaster;
+			sourceTree = "<group>";
+		};
+		A84FCB8F23D60E2000B2044F /* BeerDetail */ = {
+			isa = PBXGroup;
+			children = (
+				A84FCB9023D60E3900B2044F /* BeerDetailViewController.swift */,
+				A84FCB9223D60E4400B2044F /* BeerDetailViewModel.swift */,
+			);
+			path = BeerDetail;
+			sourceTree = "<group>";
+		};
+		A84FCB9623D71A7000B2044F /* GraphicComponents */ = {
+			isa = PBXGroup;
+			children = (
+				A84FCB9423D7196500B2044F /* AddBeerViewController.swift */,
+				A82155DB23DB460C0029E7D7 /* MessageTableViewCell.swift */,
+			);
+			path = GraphicComponents;
+			sourceTree = "<group>";
+		};
+		A855AC1A23F6B27C00230CCC /* Protocols */ = {
+			isa = PBXGroup;
+			children = (
+				A833242623D88EE300E3FA74 /* PeerToPeerFlowCoordinatorProtocol.swift */,
+			);
+			path = Protocols;
+			sourceTree = "<group>";
+		};
+		A8673E7923CF5396000E7CE6 /* SupportFiles */ = {
+			isa = PBXGroup;
+			children = (
+				A830993923CF2EB400581FF5 /* AppDelegate.swift */,
+				A830994223CF2EB500581FF5 /* Assets.xcassets */,
+				A830994723CF2EB500581FF5 /* Info.plist */,
+				A830994423CF2EB500581FF5 /* LaunchScreen.storyboard */,
+				A86A590623D075C9001344F7 /* SceneDelegate.swift */,
+			);
+			path = SupportFiles;
+			sourceTree = "<group>";
+		};
+		A8673E7A23CF5458000E7CE6 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				A84FCB8323D5F77600B2044F /* Beer.swift */,
+				A8673E7B23CF5466000E7CE6 /* Person.swift */,
+				A89E7A3E23FAB80700737006 /* ChatMessage.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		A8673E7D23CF5DD5000E7CE6 /* Domain */ = {
+			isa = PBXGroup;
+			children = (
+				A8673E8723CF6006000E7CE6 /* UseCases */,
+				A8673E7A23CF5458000E7CE6 /* Models */,
+			);
+			path = Domain;
+			sourceTree = "<group>";
+		};
+		A8673E7E23CF5DE2000E7CE6 /* UI */ = {
+			isa = PBXGroup;
+			children = (
+				A8673E8E23CF60B9000E7CE6 /* FlowCoordinatorProtocol.swift */,
+				A81107F023D8695900B57772 /* CRUD */,
+				A86A58D323D0635F001344F7 /* Extensions */,
+				A84FCB9623D71A7000B2044F /* GraphicComponents */,
+				A8B4F47123F192B900C7FDAA /* PeerToPeerSync */,
+				A81107F423D8722700B57772 /* Root */,
+			);
+			path = UI;
+			sourceTree = "<group>";
+		};
+		A8673E7F23CF5F4C000E7CE6 /* Data */ = {
+			isa = PBXGroup;
+			children = (
+				A8673E8823CF6022000E7CE6 /* Repositories */,
+				A8673E8023CF5F55000E7CE6 /* Models */,
+			);
+			path = Data;
+			sourceTree = "<group>";
+		};
+		A8673E8023CF5F55000E7CE6 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				A84FCB8123D5F00A00B2044F /* DataBeer.swift */,
+				A8673E8123CF5F72000E7CE6 /* DataPerson.swift */,
+				A8176D8323FAEC4800A37CC2 /* DataChatMessage.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		A8673E8323CF5FB6000E7CE6 /* Master */ = {
+			isa = PBXGroup;
+			children = (
+				A830993D23CF2EB400581FF5 /* MasterViewController.swift */,
+				A8673E8523CF5FDD000E7CE6 /* MasterViewModel.swift */,
+			);
+			path = Master;
+			sourceTree = "<group>";
+		};
+		A8673E8423CF5FC1000E7CE6 /* Detail */ = {
+			isa = PBXGroup;
+			children = (
+				A8673E9F23CF696F000E7CE6 /* DetailViewController.swift */,
+				A8673EA123CF69BE000E7CE6 /* DetailViewModel.swift */,
+			);
+			path = Detail;
+			sourceTree = "<group>";
+		};
+		A8673E8723CF6006000E7CE6 /* UseCases */ = {
+			isa = PBXGroup;
+			children = (
+				A84FCB8823D6052F00B2044F /* BeerUseCases.swift */,
+				A855AC1623F5B55300230CCC /* PeersUseCases.swift */,
+				A8673E9B23CF68AB000E7CE6 /* PersonUseCases.swift */,
+			);
+			path = UseCases;
+			sourceTree = "<group>";
+		};
+		A8673E8823CF6022000E7CE6 /* Repositories */ = {
+			isa = PBXGroup;
+			children = (
+				A84FCB7F23D5EDE700B2044F /* BeerRepository.swift */,
+				A8B4F46B23F178B600C7FDAA /* PeersRepository.swift */,
+				A8673E8923CF6045000E7CE6 /* PersonRepository.swift */,
+				A84FCB8523D6043A00B2044F /* Protocols */,
+			);
+			path = Repositories;
+			sourceTree = "<group>";
+		};
+		A8673E9023CF60C1000E7CE6 /* Protocols */ = {
+			isa = PBXGroup;
+			children = (
+				A8673E9523CF6415000E7CE6 /* MasterDetailFlowCoordinatorProtocol.swift */,
+			);
+			path = Protocols;
+			sourceTree = "<group>";
+		};
+		A86A58D323D0635F001344F7 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				A82155D123D9FADA0029E7D7 /* UIViewController.swift */,
+				A809B24823FD7DF5001FF71E /* Data.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		A8B4F46D23F18E2A00C7FDAA /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				A8E88FDF23FA94E700C19548 /* Controllers.swift */,
+				A8E88FE123FA94E700C19548 /* ModelMapper.swift */,
+				A8E88FE023FA94E700C19548 /* TextFieldsKeyboardManager.swift */,
+				A8E1422023FA9F66008262C0 /* Formatters.swift */,
+			);
+			path = Utilities;
+			sourceTree = "<group>";
+		};
+		A8B4F47123F192B900C7FDAA /* PeerToPeerSync */ = {
+			isa = PBXGroup;
+			children = (
+				A833242323D88EC200E3FA74 /* PeerToPeerFlowCoordinator.swift */,
+				A8D6C5E023FBD60600CF60E6 /* Chat */,
+				A82155CC23D9DA7A0029E7D7 /* MainPeerToPeer */,
+				A855AC1A23F6B27C00230CCC /* Protocols */,
+			);
+			path = PeerToPeerSync;
+			sourceTree = "<group>";
+		};
+		A8B4F47623F1965700C7FDAA /* Factory */ = {
+			isa = PBXGroup;
+			children = (
+				A8E88FD923FA94CD00C19548 /* Factory.swift */,
+				A8E88FDA23FA94CD00C19548 /* FactoryProtocol.swift */,
+				A8E88FDB23FA94CD00C19548 /* ViewControllerDependencyResolver.swift */,
+			);
+			path = Factory;
+			sourceTree = "<group>";
+		};
+		A8B4F47923F1985200C7FDAA /* MultiPeerConnectivity */ = {
+			isa = PBXGroup;
+			children = (
+				A82155D723DAF9A10029E7D7 /* MultiPeerConnectivityManager.swift */,
+			);
+			path = MultiPeerConnectivity;
+			sourceTree = "<group>";
+		};
+		A8D6C5E023FBD60600CF60E6 /* Chat */ = {
+			isa = PBXGroup;
+			children = (
+				A8B4F47223F1933000C7FDAA /* ActiveChatPeerViewController.swift */,
+				A8B4F47423F1934000C7FDAA /* ChatPeerViewModel.swift */,
+				A89E7A3C23FAB51800737006 /* PassiveChatPeerViewController.swift */,
+			);
+			path = Chat;
+			sourceTree = "<group>";
+		};
+		A8E1422223FAA747008262C0 /* CouchbaseP2P */ = {
+			isa = PBXGroup;
+			children = (
+				A855AC1B23F6B29100230CCC /* PeerManagerProtocol.swift */,
+				A8F3E7CC23F1BE0300A9F5B4 /* PeerConnection.swift */,
+				A8E61D0323F5528100D56016 /* ActivePeerManager.swift */,
+				A8E61D0623F5917E00D56016 /* PassivePeerManager.swift */,
+			);
+			path = CouchbaseP2P;
+			sourceTree = "<group>";
+		};
+		EB9DB8D9178C1D94F53338D0 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				DCBA965BEB09A52EBB79FCD5 /* Pods_CouchbaseTest.framework */,
+				81093380C3BCACBEDAFA900D /* Pods_CouchbaseTestTests.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		A830993523CF2EB400581FF5 /* CouchbaseTest */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = A830995523CF2EB600581FF5 /* Build configuration list for PBXNativeTarget "CouchbaseTest" */;
+			buildPhases = (
+				0AEE6223CA4941B1D0B06121 /* [CP] Check Pods Manifest.lock */,
+				A865A05F23CF51990059FAF0 /* Couchbase */,
+				A830993223CF2EB400581FF5 /* Sources */,
+				A830993323CF2EB400581FF5 /* Frameworks */,
+				A830993423CF2EB400581FF5 /* Resources */,
+				13CB0FC538D2B92AF16F8484 /* [CP] Embed Pods Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = CouchbaseTest;
+			productName = CouchbaseTest;
+			productReference = A830993623CF2EB400581FF5 /* CouchbaseTest.app */;
+			productType = "com.apple.product-type.application";
+		};
+		A830994B23CF2EB600581FF5 /* CouchbaseTestTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = A830995823CF2EB600581FF5 /* Build configuration list for PBXNativeTarget "CouchbaseTestTests" */;
+			buildPhases = (
+				4EAB04E511EBA4AAC8D52A69 /* [CP] Check Pods Manifest.lock */,
+				A830994823CF2EB600581FF5 /* Sources */,
+				A830994923CF2EB600581FF5 /* Frameworks */,
+				A830994A23CF2EB600581FF5 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				A830994E23CF2EB600581FF5 /* PBXTargetDependency */,
+			);
+			name = CouchbaseTestTests;
+			productName = CouchbaseTestTests;
+			productReference = A830994C23CF2EB600581FF5 /* CouchbaseTestTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		A830992E23CF2EB400581FF5 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 1130;
+				LastUpgradeCheck = 1130;
+				ORGANIZATIONNAME = MOLO17;
+				TargetAttributes = {
+					A830993523CF2EB400581FF5 = {
+						CreatedOnToolsVersion = 11.3;
+					};
+					A830994B23CF2EB600581FF5 = {
+						CreatedOnToolsVersion = 11.3;
+						TestTargetID = A830993523CF2EB400581FF5;
+					};
+				};
+			};
+			buildConfigurationList = A830993123CF2EB400581FF5 /* Build configuration list for PBXProject "CouchbaseTest" */;
+			compatibilityVersion = "Xcode 9.3";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = A830992D23CF2EB400581FF5;
+			productRefGroup = A830993723CF2EB400581FF5 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				A830993523CF2EB400581FF5 /* CouchbaseTest */,
+				A830994B23CF2EB600581FF5 /* CouchbaseTestTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		A830993423CF2EB400581FF5 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A830994623CF2EB500581FF5 /* LaunchScreen.storyboard in Resources */,
+				A830994323CF2EB500581FF5 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A830994A23CF2EB600581FF5 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		0AEE6223CA4941B1D0B06121 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-CouchbaseTest-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		13CB0FC538D2B92AF16F8484 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-CouchbaseTest/Pods-CouchbaseTest-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-CouchbaseTest/Pods-CouchbaseTest-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-CouchbaseTest/Pods-CouchbaseTest-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		4EAB04E511EBA4AAC8D52A69 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-CouchbaseTestTests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		A865A05F23CF51990059FAF0 /* Couchbase */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = Couchbase;
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "strip() {\n    i=0\n    archs=\"$(lipo -info \"$1\" | cut -d ':' -f3)\"\n    for arch in $archs; do\n        if ! [[ \"${VALID_ARCHS}\" == *\"${arch}\"* ]]; then\n            lipo -remove \"${arch}\" -output \"$1\" \"$1\" || exit 1\n            i=$((i + 1))\n        fi\n    done\n    \n    if [[ ${i} > 0 ]]; then\n        archs=\"$(lipo -info \"$1\" | cut -d ':' -f3)\"\n        echo \"Stripped $1 : ${archs}\"\n        return 0\n    else\n        return 1\n    fi\n}\n\n# Go to frameworks folder:\ncd \"${BUILT_PRODUCTS_DIR}/${FRAMEWORKS_FOLDER_PATH}\"\n\n# Strip frameworks:\ndsyms_files=()\nfor file in $(find . -type f -perm +111 | grep \".framework\"); do\n    if ! [[ \"$(file \"${file}\")\" == *\"dynamically linked shared library\"* ]]; then\n        continue\n    fi\n\n    strip \"${file}\"\n    if [[ $? == 0 ]]; then\n        # Code sign the stripped framework:\n        if [ \"${CODE_SIGNING_REQUIRED}\" == \"YES\" ]; then\n            echo \"Sign ${file}\"\n            codesign --force --sign ${EXPANDED_CODE_SIGN_IDENTITY} --preserve-metadata=identifier,entitlements \"${file}\"\n        fi\n\n        bin_name=\"$(basename \"${file}\")\"\n        dsyms_files+=(${BUILT_PRODUCTS_DIR}/${bin_name}.framework.dSYM/Contents/Resources/DWARF/${bin_name})\n    fi\ndone\n\n# Strip dSYM files:\nfor file in $dsyms_files; do\n    if [[ -e \"${file}\" ]]; then\n        strip \"${file}\" || true\n    fi\ndone\n";
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		A830993223CF2EB400581FF5 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A8B4F47323F1933000C7FDAA /* ActiveChatPeerViewController.swift in Sources */,
+				A830993E23CF2EB400581FF5 /* MasterViewController.swift in Sources */,
+				A89E7A3D23FAB51800737006 /* PassiveChatPeerViewController.swift in Sources */,
+				A8E61D0423F5528100D56016 /* ActivePeerManager.swift in Sources */,
+				A82155DC23DB460C0029E7D7 /* MessageTableViewCell.swift in Sources */,
+				A8673EA023CF696F000E7CE6 /* DetailViewController.swift in Sources */,
+				A84F309023D0A58C00FEEDC6 /* PersonRepositoryProtocol.swift in Sources */,
+				A830993A23CF2EB400581FF5 /* AppDelegate.swift in Sources */,
+				A8673E8A23CF6045000E7CE6 /* PersonRepository.swift in Sources */,
+				A84FCB8C23D60B8100B2044F /* BeerMasterViewController.swift in Sources */,
+				A84FCB9323D60E4400B2044F /* BeerDetailViewModel.swift in Sources */,
+				A8673E8F23CF60B9000E7CE6 /* FlowCoordinatorProtocol.swift in Sources */,
+				A8B4F46C23F178B600C7FDAA /* PeersRepository.swift in Sources */,
+				A8E88FDE23FA94CD00C19548 /* ViewControllerDependencyResolver.swift in Sources */,
+				A8E88FE423FA94E700C19548 /* ModelMapper.swift in Sources */,
+				A8E88FE223FA94E700C19548 /* Controllers.swift in Sources */,
+				A8F3E7CD23F1BE0300A9F5B4 /* PeerConnection.swift in Sources */,
+				A84FCB8223D5F00A00B2044F /* DataBeer.swift in Sources */,
+				A84FCB8E23D60C0100B2044F /* BeerMasterViewModel.swift in Sources */,
+				A855AC1723F5B55300230CCC /* PeersUseCases.swift in Sources */,
+				A8673E7C23CF5466000E7CE6 /* Person.swift in Sources */,
+				A8E88FDD23FA94CD00C19548 /* FactoryProtocol.swift in Sources */,
+				A8E1422123FA9F66008262C0 /* Formatters.swift in Sources */,
+				A8E61D0723F5917E00D56016 /* PassivePeerManager.swift in Sources */,
+				A833242723D88EE300E3FA74 /* PeerToPeerFlowCoordinatorProtocol.swift in Sources */,
+				A809B24923FD7DF5001FF71E /* Data.swift in Sources */,
+				A855AC1C23F6B29100230CCC /* PeerManagerProtocol.swift in Sources */,
+				A8673E9C23CF68AB000E7CE6 /* PersonUseCases.swift in Sources */,
+				A8673E9423CF63F6000E7CE6 /* MasterDetailFlowCoordinator.swift in Sources */,
+				A8B4F47523F1934000C7FDAA /* ChatPeerViewModel.swift in Sources */,
+				A8E88FE323FA94E700C19548 /* TextFieldsKeyboardManager.swift in Sources */,
+				A833242423D88EC200E3FA74 /* PeerToPeerFlowCoordinator.swift in Sources */,
+				A8176D8423FAEC4800A37CC2 /* DataChatMessage.swift in Sources */,
+				A82155D223D9FADA0029E7D7 /* UIViewController.swift in Sources */,
+				A82155D023D9DAD70029E7D7 /* MainPeerToPeerViewModel.swift in Sources */,
+				A84FCB8023D5EDE700B2044F /* BeerRepository.swift in Sources */,
+				A84FCB8723D604AE00B2044F /* BeerRepositoryProtocol.swift in Sources */,
+				A8673EA423CF6E5C000E7CE6 /* RootFlowCoordinatorProtocol.swift in Sources */,
+				A81107F323D86BF400B57772 /* RootViewController.swift in Sources */,
+				A8673E8D23CF6093000E7CE6 /* RootFlowCoordinator.swift in Sources */,
+				A8673E8223CF5F72000E7CE6 /* DataPerson.swift in Sources */,
+				A84FCB9523D7196500B2044F /* AddBeerViewController.swift in Sources */,
+				A855AC1923F5B58700230CCC /* PeersRepositoryProtocol.swift in Sources */,
+				A89E7A3F23FAB80700737006 /* ChatMessage.swift in Sources */,
+				A84FCB9123D60E3900B2044F /* BeerDetailViewController.swift in Sources */,
+				A8673EA223CF69BE000E7CE6 /* DetailViewModel.swift in Sources */,
+				A84FCB8423D5F77600B2044F /* Beer.swift in Sources */,
+				A8673E9623CF6415000E7CE6 /* MasterDetailFlowCoordinatorProtocol.swift in Sources */,
+				A82155CE23D9DABE0029E7D7 /* MainPeerToPeerViewController.swift in Sources */,
+				A82155D823DAF9A10029E7D7 /* MultiPeerConnectivityManager.swift in Sources */,
+				A86A590723D075CA001344F7 /* SceneDelegate.swift in Sources */,
+				A84FCB8923D6052F00B2044F /* BeerUseCases.swift in Sources */,
+				A8E88FDC23FA94CD00C19548 /* Factory.swift in Sources */,
+				A8673E8623CF5FDD000E7CE6 /* MasterViewModel.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A830994823CF2EB600581FF5 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A830995123CF2EB600581FF5 /* CouchbaseTestTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		A830994E23CF2EB600581FF5 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = A830993523CF2EB400581FF5 /* CouchbaseTest */;
+			targetProxy = A830994D23CF2EB600581FF5 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		A830994423CF2EB500581FF5 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				A830994523CF2EB500581FF5 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		A830995323CF2EB600581FF5 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				INFOPLIST_FILE = CouchbaseTest/SupportFiles/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		A830995423CF2EB600581FF5 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				INFOPLIST_FILE = CouchbaseTest/SupportFiles/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		A830995623CF2EB600581FF5 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = EB786CFCB0B7BBDEA751AAC4 /* Pods-CouchbaseTest.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 935BPM8A8T;
+				INFOPLIST_FILE = CouchbaseTest/SupportFiles/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.molo17.CouchbaseTest;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		A830995723CF2EB600581FF5 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 1593D69DE6A69D87A4FD7273 /* Pods-CouchbaseTest.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 935BPM8A8T;
+				INFOPLIST_FILE = CouchbaseTest/SupportFiles/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.molo17.CouchbaseTest;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		A830995923CF2EB600581FF5 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 2A7E07ABD24944D629801C92 /* Pods-CouchbaseTestTests.debug.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = CouchbaseTestTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.molo17.CouchbaseTest.CouchbaseTestTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/CouchbaseTest.app/CouchbaseTest";
+			};
+			name = Debug;
+		};
+		A830995A23CF2EB600581FF5 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = CC17CEB49C787F5972969F53 /* Pods-CouchbaseTestTests.release.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = CouchbaseTestTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.molo17.CouchbaseTest.CouchbaseTestTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/CouchbaseTest.app/CouchbaseTest";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		A830993123CF2EB400581FF5 /* Build configuration list for PBXProject "CouchbaseTest" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A830995323CF2EB600581FF5 /* Debug */,
+				A830995423CF2EB600581FF5 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		A830995523CF2EB600581FF5 /* Build configuration list for PBXNativeTarget "CouchbaseTest" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A830995623CF2EB600581FF5 /* Debug */,
+				A830995723CF2EB600581FF5 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		A830995823CF2EB600581FF5 /* Build configuration list for PBXNativeTarget "CouchbaseTestTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A830995923CF2EB600581FF5 /* Debug */,
+				A830995A23CF2EB600581FF5 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = A830992E23CF2EB400581FF5 /* Project object */;
+}
