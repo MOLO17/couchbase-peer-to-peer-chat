@@ -17,6 +17,8 @@ class MainPeerToPeerViewController: UIViewController {
     private let viewModel: MainPeerToPeerViewModel
     private let multiPeerManager: MultiPeerConnectivityManager
     private let reuseIdentifier = "PeerCell"
+    private var selectedPeers = [MCPeerID]()
+    private var connectedPeers = [MCPeerID]()
     private var isPassive: Bool = false
     private lazy var receivedData: ((Data) -> Void)? = { data in
         if let receivedString = String(data: data, encoding: .isoLatin1) {
@@ -37,9 +39,17 @@ class MainPeerToPeerViewController: UIViewController {
         let t = UITableView()
         t.register(UITableViewCell.self, forCellReuseIdentifier: self.reuseIdentifier)
         t.tableFooterView = UIView()
+        t.allowsMultipleSelection = true
         t.dataSource = self
         t.delegate = self
         return t
+    }()
+    
+    private lazy var connectBarButton: UIBarButtonItem = {
+        
+        let b = UIBarButtonItem(title: "Connect", style: .plain, target: self, action: #selector(connectBarButtonTapped))
+        b.isEnabled = false
+        return b
     }()
     
     
@@ -64,6 +74,7 @@ class MainPeerToPeerViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.navigationItem.rightBarButtonItems = [self.connectBarButton]
         self.multiPeerManager.delegate = self
     }
     
@@ -89,6 +100,29 @@ class MainPeerToPeerViewController: UIViewController {
     
     private func setupConstraints() {
         self.tableView.edgesToSuperview(usingSafeArea: true)
+    }
+    
+    @objc private func connectBarButtonTapped() {
+        
+        self.selectedPeers.forEach { selectedPeer in
+            self.multiPeerManager.session.nearbyConnectionData(forPeer: selectedPeer) { [weak self] c, e in
+                
+                guard let self = self else { return }
+                if let context = c {
+                    self.multiPeerManager.browser.invitePeer(selectedPeer, to: self.multiPeerManager.session, withContext: context, timeout: 30)
+                }
+                
+                if let error = e {
+                    
+                    DispatchQueue.main.async {
+                        
+                        let alert = makeInfoAlert(title: nil, message: error.localizedDescription)
+                        self.navigationViewController?.present(alert, animated: true)
+                    }
+                }
+            }
+        }
+        DispatchQueue.main.async { self.viewModel.toActivePeer(passivePeers: self.connectedPeers) }
     }
     
     private func makeInvitationAlert(title: String?, message: String, peer: MCPeerID, handler: @escaping((Bool) -> Void)) -> UIAlertController {
@@ -130,21 +164,26 @@ extension MainPeerToPeerViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-        let selectedPeer = self.foundPeers[indexPath.row]
-        self.multiPeerManager.session.nearbyConnectionData(forPeer: selectedPeer) { [weak self] c, e in
-            
-            guard let self = self else { return }
-            if let context = c {
-                self.multiPeerManager.browser.invitePeer(selectedPeer, to: self.multiPeerManager.session, withContext: context, timeout: 30)
+        DispatchQueue.main.async {
+            let selectedPeer = self.foundPeers[indexPath.row]
+            self.selectedPeers.append(selectedPeer)
+            self.connectBarButton.isEnabled = true
+            if let cell = tableView.cellForRow(at: indexPath) {
+                cell.accessoryType = .checkmark
+                cell.selectionStyle = .none
             }
-            
-            if let error = e {
-                
-                DispatchQueue.main.async {
-                    
-                    let alert = makeInfoAlert(title: nil, message: error.localizedDescription)
-                    self.navigationViewController?.present(alert, animated: true)
-                }
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
+        
+        DispatchQueue.main.async {
+            let selectedPeer = self.foundPeers[indexPath.row]
+            self.selectedPeers.removeAll(where: { $0 == selectedPeer })
+            if self.selectedPeers.isEmpty { self.connectBarButton.isEnabled = false }
+            if let cell = tableView.cellForRow(at: indexPath) {
+                cell.accessoryType = .none
+                cell.selectionStyle = .none
             }
         }
     }
@@ -177,12 +216,12 @@ extension MainPeerToPeerViewController: MultiPeerConnectivityManagerDelegate {
     
     func connectedWithPeer(peerID: MCPeerID) {
         
+        if !self.connectedPeers.contains(peerID) { self.connectedPeers.append(peerID) }
         if self.isPassive {
             self.viewModel.toPassivePeer(connectedPeer: peerID.displayName)
-        } else {
-            self.viewModel.toActivePeer(passivePeer: peerID)
         }
         DispatchQueue.main.async {
+            print("Connected Peers: \(self.connectedPeers.map { $0.displayName })")
             self.navigationViewController?.present(makeInfoAlert(title: nil, message: "Connected to: \(peerID.displayName)"), animated: true)
         }
         
