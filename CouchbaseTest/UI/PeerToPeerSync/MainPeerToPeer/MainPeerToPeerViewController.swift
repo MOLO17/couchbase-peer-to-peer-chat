@@ -87,7 +87,7 @@ class MainPeerToPeerViewController: UIViewController {
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         self.multiPeerManager.browser.stopBrowsingForPeers()
-        self.multiPeerManager.advertiser.stopAdvertisingPeer()
+//        self.multiPeerManager.advertiser.stopAdvertisingPeer()
     }
     
     
@@ -122,21 +122,7 @@ class MainPeerToPeerViewController: UIViewController {
                 }
             }
         }
-        DispatchQueue.main.async { self.viewModel.toActivePeer(passivePeers: self.connectedPeers) }
-    }
-    
-    private func makeInvitationAlert(title: String?, message: String, peer: MCPeerID, handler: @escaping((Bool) -> Void)) -> UIAlertController {
-        
-        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
-        let yesAction = UIAlertAction(title: "Yes", style: .default) { _ in
-            handler(true)
-        }
-        let noAction = UIAlertAction(title: "No", style: .default) { _ in
-            handler(false)
-        }
-        alert.addAction(yesAction)
-        alert.addAction(noAction)
-        return alert
+        self.viewModel.toChat()
     }
 }
 
@@ -209,22 +195,14 @@ extension MainPeerToPeerViewController: MultiPeerConnectivityManagerDelegate {
         
         DispatchQueue.main.async {
             self.isPassive = true
-            let alert = self.makeInvitationAlert(title: nil, message: "\(peer.displayName) wants to chat with you", peer: peer, handler: invitationHandler)
+            let alert = makeInvitationAlert(title: nil, message: "\(peer.displayName) wants to chat with you", peer: peer, handler: invitationHandler)
             self.navigationViewController?.present(alert, animated: true)
         }
     }
     
     func connectedWithPeer(peerID: MCPeerID) {
-        
-        if !self.connectedPeers.contains(peerID) { self.connectedPeers.append(peerID) }
-        if self.isPassive {
-            self.viewModel.toPassivePeer(connectedPeer: peerID.displayName)
-        }
-        DispatchQueue.main.async {
-            print("Connected Peers: \(self.connectedPeers.map { $0.displayName })")
-            self.navigationViewController?.present(makeInfoAlert(title: nil, message: "Connected to: \(peerID.displayName)"), animated: true)
-        }
-        
+        print("Connected Peers: \(self.connectedPeers.map { $0.displayName })")
+        DispatchQueue.main.async { if self.isPassive { self.viewModel.toChat() }}
     }
     
     func lostPeer(id: MCPeerID) {

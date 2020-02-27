@@ -16,6 +16,5 @@ protocol RootFlowCoordinatorProtocol: class {
     func toDetail(person: Person)
     func toBeerDetail(beer: Beer)
     func toPeerToPeer()
-    func toActiveChat(passivePeer: MCPeerID)
-    func toPassiveChat(connectedPeer: String)
+    func toChat()
 }

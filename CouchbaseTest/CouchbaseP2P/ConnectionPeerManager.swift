@@ -1,5 +1,5 @@
 //
-//  ActivePeerManager.swift
+//  ConnectionPeerManager.swift
 //  CouchbaseTest
 //
 //  Created by Gabriele Nardi on 13/02/2020.
@@ -11,9 +11,10 @@ import Foundation
 import MultipeerConnectivity
 
 
-class ActivePeerManager: PeerManagerProtocol {
+class ConnectionPeerManager: ConnectionPeerManagerProtocol {
     
     // MARK: - Private attributes
+    private let target: MCPeerID
     private var replicator: Replicator?
     private var connection: MessageEndpointConnection?
     private var replicatorConnection: ReplicatorConnection?
@@ -24,30 +25,30 @@ class ActivePeerManager: PeerManagerProtocol {
     
     
     // MARK: - Methods
-    init(database: Database, passivePeer: MCPeerID) {
-        self.setupConnection(database: database, target: passivePeer)
-    }
-    
-    func sendToEndpoint(message: Message, completion: ((Error?) -> Void)?) {
-        self.connection?.send(message: message) { completion?($1?.error) }
+    init(database: Database, target: MCPeerID) {
+        self.target = target
+        self.setupConnection(database: database, target: target)
     }
     
     func didReceive(message: Message) {
         self.replicatorConnection?.receive(message: message)
     }
     
-    func stopReplicationSync() {
+    func stopReplicationSync(forTarget target: MCPeerID) {
         
-        self.connection?.close(error: nil) {}
-        self.replicator?.stop()
+        if target == self.target {
+            self.connection?.close(error: nil) {}
+            self.replicator?.stop()
+            self.replicatorConnection?.close(error: nil)
+        }
     }
     
     
     // MARK: - Private methods
     private func setupConnection(database: Database, target: MCPeerID) {
         
-        let target = MessageEndpoint(uid: "AP:\(UUID().uuidString)", target: target, protocolType: .messageStream, delegate: self)
-        let config = ReplicatorConfiguration(database: database, target: target)
+        let messageTarget = MessageEndpoint(uid: "AP:\(UIDevice.current.identifierForVendor?.uuidString ?? "ID")", target: target, protocolType: .messageStream, delegate: self)
+        let config = ReplicatorConfiguration(database: database, target: messageTarget)
         config.continuous = true
         config.replicatorType = .pushAndPull
         
@@ -56,7 +57,14 @@ class ActivePeerManager: PeerManagerProtocol {
     }
 }
 
-extension ActivePeerManager: MessageEndpointDelegate {
+extension ConnectionPeerManager: Equatable {
+    
+    static func == (lhs: ConnectionPeerManager, rhs: ConnectionPeerManager) -> Bool {
+        lhs.target == rhs.target
+    }
+}
+
+extension ConnectionPeerManager: MessageEndpointDelegate {
     
     func createConnection(endpoint: MessageEndpoint) -> MessageEndpointConnection {
         

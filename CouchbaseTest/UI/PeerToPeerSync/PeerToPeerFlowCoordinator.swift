@@ -13,8 +13,7 @@ import UIKit
 class PeerToPeerFlowCoordinator: FlowCoordinatorProtocol {
 
     typealias Factory = MainPeerToPeerFactory &
-                        ActiveChatPeerFactory &
-                        PassiveChatPeerFactory
+                        ChatPeerFactory
     
     
     // MARK: - Private attributes
@@ -47,12 +46,7 @@ class PeerToPeerFlowCoordinator: FlowCoordinatorProtocol {
 
 extension PeerToPeerFlowCoordinator: PeerToPeerFlowCoordinatorProtocol {
     
-    func toActiveChat(passivePeer: MCPeerID) {
-        self.rootFlowCoordinator?.toActiveChat(passivePeer: passivePeer)
+    func toChat() {
+        self.rootFlowCoordinator?.toChat()
     }
-    
-    func toPassiveChat(connectedPeer name: String) {
-        self.rootFlowCoordinator?.toPassiveChat(connectedPeer: name)
-    }
-    
 }

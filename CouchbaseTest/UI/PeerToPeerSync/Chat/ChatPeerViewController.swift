@@ -1,5 +1,5 @@
 //
-//  ActiveChatPeerViewController.swift
+//  ChatPeerViewController.swift
 //  CouchbaseTest
 //
 //  Created by Gabriele Nardi on 10/02/2020.
@@ -11,7 +11,7 @@ import Foundation
 import MultipeerConnectivity
 import UIKit
 
-class ActiveChatPeerViewController: UIViewController {
+class ChatPeerViewController: UIViewController {
     
     // MARK: - Private Attributes
     private let viewModel: ChatPeerViewModel
@@ -19,13 +19,14 @@ class ActiveChatPeerViewController: UIViewController {
     private let multiPeerManager = MultiPeerConnectivityManager.shared
     private let reuseIdentifier = "PeerCell"
     private let messageReuseIdentifier = "MessageCell"
-    private var activePeerManager: ActivePeerManager!
+    private var connectionPeerManagers = [ConnectionPeerManager]()
+    private var didConnect: ((MCPeerID) -> Void)?
     
     private lazy var receivedData: ((Data) -> Void)? = { [weak self] data in
         
         guard let self = self else { return }
         DispatchQueue.main.async {
-            self.activePeerManager.didReceive(message: Message.fromData(data))
+            self.connectionPeerManagers.forEach { $0.didReceive(message: Message.fromData(data)) }
         }
     }
     
@@ -100,8 +101,8 @@ class ActiveChatPeerViewController: UIViewController {
     
     
     // MARK: - Attributes
-    var passivePeer: MCPeerID? {
-        didSet { self.passivePeer.flatMap(self.setupActivePeerManager) }
+    var connectedPeers = [MCPeerID]() {
+        didSet { self.setupConnectionManager(connectedPeers: self.connectedPeers) }
     }
     
     
@@ -130,8 +131,15 @@ class ActiveChatPeerViewController: UIViewController {
         super.viewDidLoad()
         
         self.multiPeerManager.delegate = self
+        self.connectedPeers = self.multiPeerManager.session.connectedPeers
+        
         self.viewModel.update { [weak self] messages in
             self?.totalMessages = messages
+        }
+        self.didConnect = { [weak self] peer in
+            
+            guard let self = self else { return }
+            if !self.connectedPeers.contains(peer) { self.connectedPeers.append(peer) }
         }
     }
     
@@ -147,25 +155,34 @@ class ActiveChatPeerViewController: UIViewController {
     
     
     // MARK: - Private Methods
-    private func setupActivePeerManager(passivePeer: MCPeerID) {
+    private func setupConnectionManager(connectedPeers: [MCPeerID]) {
         
+        print("Connected Peers: \(connectedPeers)")
         DispatchQueue.main.async {
-            self.activePeerManager = ActivePeerManager(database: self.viewModel.getDB(), passivePeer: passivePeer)
-            self.activePeerManager.send = { [weak self] data in
+            connectedPeers.forEach { [weak self] peer in
                 
                 guard let self = self else { return }
-                do {
-                    try self.multiPeerManager.session.send(data, toPeers: self.multiPeerManager.session.connectedPeers, with: .reliable)
-                } catch {
+                let manager = ConnectionPeerManager(database: self.viewModel.getDB(), target: peer)
+                if !self.connectionPeerManagers.contains(manager) {
                     
-                    DispatchQueue.main.async {
-                        let alert = makeInfoAlert(title: nil, message: error.localizedDescription)
-                        self.navigationViewController?.present(alert, animated: true)
+                    self.connectionPeerManagers.append(manager)
+                    manager.send = { [weak self] data in
+                        
+                        guard let self = self else { return }
+                        do {
+                            try self.multiPeerManager.session.send(data, toPeers: self.multiPeerManager.session.connectedPeers, with: .unreliable)
+                        } catch {
+                            
+                            DispatchQueue.main.async {
+                                let alert = makeInfoAlert(title: nil, message: error.localizedDescription)
+                                self.navigationViewController?.present(alert, animated: true)
+                            }
+                        }
                     }
                 }
+                print("Manager: \(manager)")
+                self.tableView.reloadData()
             }
-            
-            self.tableView.reloadData()
         }
     }
     
@@ -236,13 +253,13 @@ class ActiveChatPeerViewController: UIViewController {
     }
 }
 
-protocol ActiveChatPeerFactory {
+protocol ChatPeerFactory {
     
-    func makeActiveChatPeerViewController(viewModel: ChatPeerViewModel) -> ActiveChatPeerViewController
+    func makeChatPeerViewController(viewModel: ChatPeerViewModel) -> ChatPeerViewController
     func makeChatPeerViewModel(peerToPeerCoordinator: PeerToPeerFlowCoordinatorProtocol) -> ChatPeerViewModel
 }
 
-extension ActiveChatPeerViewController: UITableViewDataSource {
+extension ChatPeerViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return self.totalMessages.count
@@ -259,7 +276,7 @@ extension ActiveChatPeerViewController: UITableViewDataSource {
     }
 }
 
-extension ActiveChatPeerViewController: UITableViewDelegate {
+extension ChatPeerViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         
@@ -282,24 +299,32 @@ extension ActiveChatPeerViewController: UITableViewDelegate {
     }
 }
 
-extension ActiveChatPeerViewController: MultiPeerConnectivityManagerDelegate {
+extension ChatPeerViewController: MultiPeerConnectivityManagerDelegate {
     
     var didReceive: ((Data) -> Void)? {
         get { self.receivedData }
     }
     
+    func didReceiveInvitation(fromPeer peer: MCPeerID, invitationHandler: @escaping ((Bool) -> Void)) {
+        
+        DispatchQueue.main.async {
+            let alert = makeInvitationAlert(title: nil, message: "\(peer.displayName) wants to chat with you", peer: peer, handler: invitationHandler)
+            self.navigationViewController?.present(alert, animated: true)
+        }
+    }
+    
     func connectedWithPeer(peerID: MCPeerID) {
-        DispatchQueue.main.async { self.navigationViewController?.present(makeInfoAlert(title: nil, message: "Connected to: \(peerID.displayName)"), animated: true) }
+        self.didConnect?(peerID)
     }
     
     func lostPeer(id: MCPeerID) {
-        DispatchQueue.main.async { self.activePeerManager.stopReplicationSync() }
+        DispatchQueue.main.async { self.connectionPeerManagers.forEach { $0.stopReplicationSync(forTarget: id) }}
     }
     
     func notConnectedToPeer(peerID: MCPeerID) {
         
         DispatchQueue.main.async {
-            self.activePeerManager.stopReplicationSync()
+            self.connectionPeerManagers.forEach { $0.stopReplicationSync(forTarget: peerID) }
             self.totalMessages.removeAll()
             self.tableView.reloadData()
             let alert = makeInfoAlert(title: nil, message: "Disconnected from: \(peerID.displayName)")
