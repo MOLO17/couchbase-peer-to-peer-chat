@@ -46,7 +46,7 @@ class PeerToPeerFlowCoordinator: FlowCoordinatorProtocol {
 
 extension PeerToPeerFlowCoordinator: PeerToPeerFlowCoordinatorProtocol {
     
-    func toChat() {
-        self.rootFlowCoordinator?.toChat()
+    func toChat(selectedPeer: MCPeerID?) {
+        self.rootFlowCoordinator?.toChat(selectedPeer: selectedPeer)
     }
 }

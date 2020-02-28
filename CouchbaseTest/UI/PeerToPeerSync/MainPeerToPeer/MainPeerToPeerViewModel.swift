@@ -20,7 +20,7 @@ class MainPeerToPeerViewModel {
         self.peerToPeerCoordinator = peerToPeerCoordinator
     }
     
-    func toChat() {
-        self.peerToPeerCoordinator.toChat()
+    func toChat(selectedPeer: MCPeerID?) {
+        self.peerToPeerCoordinator.toChat(selectedPeer: selectedPeer)
     }
 }

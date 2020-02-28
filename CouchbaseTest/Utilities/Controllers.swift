@@ -18,7 +18,7 @@ func makeInfoAlert(title: String?, message: String) -> UIAlertController {
     return alert
 }
 
-func makeInvitationAlert(title: String?, message: String, peer: MCPeerID, handler: @escaping((Bool) -> Void)) -> UIAlertController {
+func makeInvitationAlert(title: String?, message: String, peer: MCPeerID, handler: @escaping((Bool) -> Void), accepted: ((Bool) -> Void)? = nil) -> UIAlertController {
     
     let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
     let yesAction = UIAlertAction(title: "Yes", style: .default) { _ in

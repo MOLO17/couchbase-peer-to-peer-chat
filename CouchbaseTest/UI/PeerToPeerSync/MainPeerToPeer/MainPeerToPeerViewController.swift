@@ -17,7 +17,7 @@ class MainPeerToPeerViewController: UIViewController {
     private let viewModel: MainPeerToPeerViewModel
     private let multiPeerManager: MultiPeerConnectivityManager
     private let reuseIdentifier = "PeerCell"
-    private var selectedPeers = [MCPeerID]()
+    private var selectedPeer: MCPeerID?
     private var connectedPeers = [MCPeerID]()
     private var isPassive: Bool = false
     private lazy var receivedData: ((Data) -> Void)? = { data in
@@ -39,7 +39,7 @@ class MainPeerToPeerViewController: UIViewController {
         let t = UITableView()
         t.register(UITableViewCell.self, forCellReuseIdentifier: self.reuseIdentifier)
         t.tableFooterView = UIView()
-        t.allowsMultipleSelection = true
+        t.allowsMultipleSelection = false
         t.dataSource = self
         t.delegate = self
         return t
@@ -48,6 +48,17 @@ class MainPeerToPeerViewController: UIViewController {
     private lazy var connectBarButton: UIBarButtonItem = {
         
         let b = UIBarButtonItem(title: "Connect", style: .plain, target: self, action: #selector(connectBarButtonTapped))
+        b.isEnabled = false
+        return b
+    }()
+    
+    private lazy var skipToChatButton: UIButton = {
+       
+        let b = UIButton()
+        b.translatesAutoresizingMaskIntoConstraints = false
+        b.setTitle("Skip to chat", for: UIControl.State())
+        b.setTitleColor(.systemBlue, for: UIControl.State())
+        b.addTarget(self, action: #selector(skipToChatButtonTapped), for: .touchUpInside)
         b.isEnabled = false
         return b
     }()
@@ -96,15 +107,19 @@ class MainPeerToPeerViewController: UIViewController {
         self.view = UIView()
         self.view.backgroundColor = .white
         self.view.addSubview(self.tableView)
+        self.view.addSubview(self.skipToChatButton)
     }
     
     private func setupConstraints() {
-        self.tableView.edgesToSuperview(usingSafeArea: true)
+        self.tableView.edgesToSuperview(excluding: .bottom, usingSafeArea: true)
+        self.tableView.bottomToTop(of: self.skipToChatButton)
+        
+        self.skipToChatButton.edgesToSuperview(excluding: .top, usingSafeArea: true)
     }
     
     @objc private func connectBarButtonTapped() {
         
-        self.selectedPeers.forEach { selectedPeer in
+        if let selectedPeer = self.selectedPeer {
             self.multiPeerManager.session.nearbyConnectionData(forPeer: selectedPeer) { [weak self] c, e in
                 
                 guard let self = self else { return }
@@ -122,7 +137,10 @@ class MainPeerToPeerViewController: UIViewController {
                 }
             }
         }
-        self.viewModel.toChat()
+    }
+    
+    @objc func skipToChatButtonTapped() {
+        self.viewModel.toChat(selectedPeer: selectedPeer)
     }
 }
 
@@ -152,8 +170,9 @@ extension MainPeerToPeerViewController: UITableViewDelegate {
         
         DispatchQueue.main.async {
             let selectedPeer = self.foundPeers[indexPath.row]
-            self.selectedPeers.append(selectedPeer)
+            self.selectedPeer = selectedPeer
             self.connectBarButton.isEnabled = true
+            self.skipToChatButton.isEnabled = true
             if let cell = tableView.cellForRow(at: indexPath) {
                 cell.accessoryType = .checkmark
                 cell.selectionStyle = .none
@@ -164,9 +183,11 @@ extension MainPeerToPeerViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
         
         DispatchQueue.main.async {
-            let selectedPeer = self.foundPeers[indexPath.row]
-            self.selectedPeers.removeAll(where: { $0 == selectedPeer })
-            if self.selectedPeers.isEmpty { self.connectBarButton.isEnabled = false }
+            self.selectedPeer = nil
+            if self.selectedPeer == nil {
+                self.connectBarButton.isEnabled = false
+                self.skipToChatButton.isEnabled = false
+            }
             if let cell = tableView.cellForRow(at: indexPath) {
                 cell.accessoryType = .none
                 cell.selectionStyle = .none
@@ -202,7 +223,13 @@ extension MainPeerToPeerViewController: MultiPeerConnectivityManagerDelegate {
     
     func connectedWithPeer(peerID: MCPeerID) {
         print("Connected Peers: \(self.connectedPeers.map { $0.displayName })")
-        DispatchQueue.main.async { if self.isPassive { self.viewModel.toChat() }}
+        DispatchQueue.main.async {
+            if self.isPassive {
+                self.viewModel.toChat(selectedPeer: peerID)
+            } else {
+                self.viewModel.toChat(selectedPeer: peerID)
+            }
+        }
     }
     
     func lostPeer(id: MCPeerID) {
