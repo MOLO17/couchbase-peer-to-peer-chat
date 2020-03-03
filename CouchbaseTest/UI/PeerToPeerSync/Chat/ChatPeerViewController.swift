@@ -138,7 +138,6 @@ class ChatPeerViewController: UIViewController {
         self.multiPeerManager.delegate = self
         
         self.activePeerManager = ActivePeerManager(database: self.viewModel.getDB(), target: self.multiPeerManager.session.connectedPeers)
-        self.passivePeerManager = PassivePeerManager(database: self.viewModel.getDB(), target: self.multiPeerManager.session.connectedPeers)
         
         self.viewModel.update { [weak self] messages in
             DispatchQueue.main.async { self?.totalMessages = messages }
@@ -148,9 +147,7 @@ class ChatPeerViewController: UIViewController {
             
             guard let self = self else { return }
             self.activePeerManager?.stopReplicationSync()
-            self.passivePeerManager?.stopReplicationSync()
             self.activePeerManager = ActivePeerManager(database: self.viewModel.getDB(), target: self.multiPeerManager.session.connectedPeers)
-            self.passivePeerManager = PassivePeerManager(database: self.viewModel.getDB(), target: self.multiPeerManager.session.connectedPeers)
         }
     }
     
