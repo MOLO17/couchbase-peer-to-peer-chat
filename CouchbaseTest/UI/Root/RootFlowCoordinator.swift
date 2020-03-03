@@ -106,14 +106,17 @@ extension RootFlowCoordinator: RootFlowCoordinatorProtocol {
         }
     }
     
-    func toChat(selectedPeer: MCPeerID?) {
+    func toChat() {
         
         let vm = self.factory.getChatPeerViewModel(peerToPeerCoordinator: self.peerToPeerCoordinator)
         let vc = self.factory.getChatPeerViewController(viewModel: vm)
-        vc.selectedPeer = selectedPeer
         
         if let nc = self.currentVC as? UINavigationController {
-            nc.pushViewController(vc, animated: true)
+            if (nc.viewControllers.filter { $0 is ChatPeerViewController }.isEmpty) {
+                nc.pushViewController(vc, animated: true)
+            } else {
+                nc.popViewController(animated: true)
+            }
         }
     }
 }

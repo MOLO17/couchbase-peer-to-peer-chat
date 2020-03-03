@@ -14,20 +14,19 @@ import UIKit
 class ChatPeerViewController: UIViewController {
     
     // MARK: - Private Attributes
+
     private let viewModel: ChatPeerViewModel
     private var keyboardManager: TextFieldsKeyboardManager!
     private let multiPeerManager = MultiPeerConnectivityManager.shared
     private let reuseIdentifier = "PeerCell"
     private let messageReuseIdentifier = "MessageCell"
-    private var connectionPeerManager: ConnectionPeerManager!
+    private var isFirstTime =  true
     private var didConnect: ((MCPeerID) -> Void)?
     
     private lazy var receivedData: ((Data) -> Void)? = { [weak self] data in
         
         guard let self = self else { return }
-        DispatchQueue.main.async {
-            self.connectionPeerManager.didReceive(message: Message.fromData(data))
-        }
+        self.activePeerManager?.didReceive(message: Message.fromData(data))
     }
     
     private var totalMessages: [ChatMessage] = [] {
@@ -99,16 +98,17 @@ class ChatPeerViewController: UIViewController {
         return b
     }()
     
+    private lazy var trashButton = UIBarButtonItem(barButtonSystemItem: .trash, target: self, action: #selector(didTapOnTrashButton))
+    
     
     // MARK: - Attributes
-    var selectedPeer: MCPeerID? {
-        didSet {
-            if let peer = self.selectedPeer {
-                self.setupConnectionManager(connectedPeer: peer)
-            }
-        }
+    var activePeerManager: ActivePeerManager? {
+        didSet { self.activePeerManager.flatMap(self.setupConnectionManager) }
     }
     
+    private var passivePeerManager: PassivePeerManager? {
+        didSet { self.passivePeerManager.flatMap(self.setupConnectionManager) }
+    }
     
     // MARK: - Methods
     init(viewModel: ChatPeerViewModel) {
@@ -134,15 +134,23 @@ class ChatPeerViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.setupTableView()
         self.multiPeerManager.delegate = self
         
+        self.activePeerManager = ActivePeerManager(database: self.viewModel.getDB(), target: self.multiPeerManager.session.connectedPeers)
+        self.passivePeerManager = PassivePeerManager(database: self.viewModel.getDB(), target: self.multiPeerManager.session.connectedPeers)
+        
         self.viewModel.update { [weak self] messages in
-            self?.totalMessages = messages
+            DispatchQueue.main.async { self?.totalMessages = messages }
         }
+        
         self.didConnect = { [weak self] peer in
             
             guard let self = self else { return }
-            if self.selectedPeer == peer { self.selectedPeer = peer }
+            self.activePeerManager?.stopReplicationSync()
+            self.passivePeerManager?.stopReplicationSync()
+            self.activePeerManager = ActivePeerManager(database: self.viewModel.getDB(), target: self.multiPeerManager.session.connectedPeers)
+            self.passivePeerManager = PassivePeerManager(database: self.viewModel.getDB(), target: self.multiPeerManager.session.connectedPeers)
         }
     }
     
@@ -153,28 +161,30 @@ class ChatPeerViewController: UIViewController {
     
     
     // MARK: - Private Methods
-    private func setupConnectionManager(connectedPeer: MCPeerID) {
+    private func setupConnectionManager(peerManager: ConnectionPeerManagerProtocol) {
         
-        DispatchQueue.main.async {
+        var manager = peerManager
+        manager.send = { [weak self] data in
             
-            self.connectionPeerManager = ConnectionPeerManager(database: self.viewModel.getDB(), target: connectedPeer)
-            self.connectionPeerManager.send = { [weak self] data in
+            guard let self = self else { return }
+            do {
+                try self.multiPeerManager.session.send(data, toPeers: peerManager.target, with: .reliable)
+            } catch {
                 
-                guard let self = self else { return }
-                if let selectedPeer = self.selectedPeer {
-                    do {
-                        try self.multiPeerManager.session.send(data, toPeers: [selectedPeer], with: .unreliable)
-                    } catch {
-                        
-                        DispatchQueue.main.async {
-                            let alert = makeInfoAlert(title: nil, message: error.localizedDescription)
-                            self.navigationViewController?.present(alert, animated: true)
-                        }
-                    }
+                DispatchQueue.main.async {
+                    let alert = makeInfoAlert(title: nil, message: error.localizedDescription)
+                    self.navigationViewController?.present(alert, animated: true)
                 }
             }
-            self.tableView.reloadData()
         }
+    }
+    
+    private func setupTableView() {
+        
+        let gesture = UILongPressGestureRecognizer(target: self, action: #selector(tableViewLongPressed))
+        gesture.minimumPressDuration = 1
+        gesture.delegate = self
+        tableView.addGestureRecognizer(gesture)
     }
     
     private func setupViews() {
@@ -212,7 +222,8 @@ class ChatPeerViewController: UIViewController {
         if let text = self.messageTextfield.text, !text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
             
             if self.messageTextfield.isFirstResponder { self.messageTextfield.resignFirstResponder() }
-            
+            print("Active: \(self.activePeerManager), target: \(self.activePeerManager?.target)")
+            print("Passive: \(self.passivePeerManager), target: \(self.passivePeerManager?.target)")
             self.messageTextfield.text = ""
             self.viewModel.store(message: text) { [weak self] error in
                 
@@ -229,6 +240,45 @@ class ChatPeerViewController: UIViewController {
     
     @objc private func disconnectButtonPressed() {
         self.multiPeerManager.session.disconnect()
+    }
+    
+    @objc private func tableViewLongPressed(gesture: UILongPressGestureRecognizer) {
+        
+        self.tableView.allowsSelection = true
+        self.tableView.allowsMultipleSelection = true
+        
+        let p = gesture.location(in: self.tableView)
+        let indexPath = self.tableView.indexPathForRow(at: p)
+        if gesture.state == .began {
+            
+            self.tableView.selectRow(at: indexPath, animated: true, scrollPosition: .none)
+            if let iP = indexPath {
+                let cell = self.tableView.cellForRow(at: iP)
+                cell?.accessoryType = .checkmark
+            }
+            self.navigationItem.rightBarButtonItems = [self.trashButton]
+        }
+    }
+    
+    @objc private func didTapOnTrashButton() {
+        
+        self.tableView.beginUpdates()
+        self.tableView.indexPathsForSelectedRows?.map { self.totalMessages[$0.row] }.forEach { self.viewModel.remove(message: $0) { [weak self] e in
+            
+            if let error = e {
+                if self?.navigationViewController?.presentedViewController != nil {
+                    self?.navigationViewController?.present(makeInfoAlert(title: nil, message: error.localizedDescription), animated: true)
+                }
+            } else {
+                if self?.navigationViewController?.presentedViewController != nil {
+                    self?.navigationViewController?.present(makeInfoAlert(title: nil, message: "MessageDeleted"), animated: true)
+                }
+            }}
+        }
+        self.tableView.endUpdates()
+        self.navigationItem.rightBarButtonItems = []
+        self.tableView.allowsSelection = false
+        self.tableView.allowsMultipleSelection = false
     }
     
     private func applyStyle() {
@@ -263,11 +313,29 @@ extension ChatPeerViewController: UITableViewDataSource {
         }
         let message = self.totalMessages[indexPath.row]
         cell.setupCell(layout: MessageTableViewCell.Layout(text: message.text, type: message.messageType, date: message.creationDate))
+        cell.selectionStyle = .none
         return cell
     }
 }
 
 extension ChatPeerViewController: UITableViewDelegate {
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        let cell = tableView.cellForRow(at: indexPath)
+        cell?.accessoryType = .checkmark
+    }
+    
+    func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
+        let cell = tableView.cellForRow(at: indexPath)
+        cell?.accessoryType = .none
+        
+        if tableView.indexPathsForSelectedRows == nil {
+            self.tableView.allowsSelection = false
+            self.tableView.allowsMultipleSelection = false
+            self.navigationItem.rightBarButtonItems = []
+        }
+    }
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         
@@ -299,7 +367,7 @@ extension ChatPeerViewController: MultiPeerConnectivityManagerDelegate {
     func didReceiveInvitation(fromPeer peer: MCPeerID, invitationHandler: @escaping ((Bool) -> Void)) {
         
         DispatchQueue.main.async {
-            let alert = makeInvitationAlert(title: nil, message: "\(peer.displayName) wants to chat with you", peer: peer, handler: invitationHandler) { if $0 { self.selectedPeer = peer }}
+            let alert = makeInvitationAlert(title: nil, message: "\(peer.displayName) wants to chat with you", peer: peer, handler: invitationHandler)
             self.navigationViewController?.present(alert, animated: true)
         }
     }
@@ -309,17 +377,25 @@ extension ChatPeerViewController: MultiPeerConnectivityManagerDelegate {
     }
     
     func lostPeer(id: MCPeerID) {
-        DispatchQueue.main.async { self.connectionPeerManager.stopReplicationSync(forTarget: id) }
+        DispatchQueue.main.async {
+            self.activePeerManager?.stopReplicationSync()
+            self.passivePeerManager?.stopReplicationSync()
+        }
     }
     
     func notConnectedToPeer(peerID: MCPeerID) {
         
         DispatchQueue.main.async {
-            self.connectionPeerManager.stopReplicationSync(forTarget: peerID)
+            self.activePeerManager?.stopReplicationSync()
+            self.passivePeerManager?.stopReplicationSync()
             self.totalMessages.removeAll()
             self.tableView.reloadData()
             let alert = makeInfoAlert(title: nil, message: "Disconnected from: \(peerID.displayName)")
             self.navigationViewController?.present(alert, animated: true)
         }
     }
+}
+
+extension ChatPeerViewController: UIGestureRecognizerDelegate {
+    
 }

@@ -12,7 +12,11 @@ import MultipeerConnectivity
 
 protocol ConnectionPeerManagerProtocol {
     
+    // MARK: - Attributes
+    var target: [MCPeerID] { get set }
+    var send: ((Data) -> Void)? { get set }
+    
     // MARK: - Methods
     func didReceive(message: Message)
-    func stopReplicationSync(forTarget: MCPeerID)
+    func stopReplicationSync()
 }

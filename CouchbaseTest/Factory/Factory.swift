@@ -117,7 +117,7 @@ class Factory: FactoryProtocol {
     }
     
     func getMainPeerToPeerViewModel(peerToPeerCoordinator: PeerToPeerFlowCoordinatorProtocol) -> MainPeerToPeerViewModel {
-        MainPeerToPeerViewModel(peerToPeerCoordinator: peerToPeerCoordinator)
+        MainPeerToPeerViewModel(peersUseCases: self.getPeersUseCases(), peerToPeerCoordinator: peerToPeerCoordinator)
     }
     
     
