@@ -17,9 +17,11 @@ class MainPeerToPeerViewController: UIViewController {
     private let viewModel: MainPeerToPeerViewModel
     private let multiPeerManager: MultiPeerConnectivityManager
     private let reuseIdentifier = "PeerCell"
-    private var selectedPeer: MCPeerID?
+    private var selectedPeers = [MCPeerID]()
     private var connectedPeers = [MCPeerID]()
     private var isPassive: Bool = false
+    private var isBrowsing: Bool = false
+    private var isAdvertising: Bool = false
     private lazy var receivedData: ((Data) -> Void)? = { data in
         if let receivedString = String(data: data, encoding: .isoLatin1) {
             print("Received : \(receivedString)")
@@ -39,7 +41,7 @@ class MainPeerToPeerViewController: UIViewController {
         let t = UITableView()
         t.register(UITableViewCell.self, forCellReuseIdentifier: self.reuseIdentifier)
         t.tableFooterView = UIView()
-        t.allowsMultipleSelection = false
+        t.allowsMultipleSelection = true
         t.dataSource = self
         t.delegate = self
         return t
@@ -49,6 +51,38 @@ class MainPeerToPeerViewController: UIViewController {
         
         let b = UIBarButtonItem(title: "Connect", style: .plain, target: self, action: #selector(connectBarButtonTapped))
         b.isEnabled = false
+        return b
+    }()
+    
+    private lazy var buttonStackView: UIStackView = {
+        
+        let s = UIStackView()
+        s.translatesAutoresizingMaskIntoConstraints = false
+        s.axis = .horizontal
+        s.distribution = .equalSpacing
+        s.addArrangedSubview(self.startStopBrowsingButton)
+        s.addArrangedSubview(self.startStopAdvertisingButton)
+        s.addArrangedSubview(self.skipToChatButton)
+        return s
+    }()
+    
+    private lazy var startStopBrowsingButton: UIButton = {
+        
+        let b = UIButton()
+        b.translatesAutoresizingMaskIntoConstraints = false
+        b.setTitle("Stop Browsing", for: UIControl.State())
+        b.setTitleColor(.systemBlue, for: UIControl.State())
+        b.addTarget(self, action: #selector(startStopBrowsingButtonTapped), for: .touchUpInside)
+        return b
+    }()
+    
+    private lazy var startStopAdvertisingButton: UIButton = {
+        
+        let b = UIButton()
+        b.translatesAutoresizingMaskIntoConstraints = false
+        b.setTitle("Stop Advertising", for: UIControl.State())
+        b.setTitleColor(.systemBlue, for: UIControl.State())
+        b.addTarget(self, action: #selector(startStopAdvertisingButtonTapped), for: .touchUpInside)
         return b
     }()
     
@@ -91,14 +125,19 @@ class MainPeerToPeerViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        
         self.multiPeerManager.browser.startBrowsingForPeers()
+        self.isBrowsing = true
         self.multiPeerManager.advertiser.startAdvertisingPeer()
+        self.isAdvertising = true
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         self.multiPeerManager.browser.stopBrowsingForPeers()
-//        self.multiPeerManager.advertiser.stopAdvertisingPeer()
+        self.isBrowsing = false
+        self.multiPeerManager.advertiser.stopAdvertisingPeer()
+        self.isAdvertising = false
     }
     
     
@@ -107,20 +146,21 @@ class MainPeerToPeerViewController: UIViewController {
         self.view = UIView()
         self.view.backgroundColor = .white
         self.view.addSubview(self.tableView)
-        self.view.addSubview(self.skipToChatButton)
+        self.view.addSubview(self.buttonStackView)
     }
     
     private func setupConstraints() {
         self.tableView.edgesToSuperview(excluding: .bottom, usingSafeArea: true)
-        self.tableView.bottomToTop(of: self.skipToChatButton)
+        self.tableView.bottomToTop(of: self.buttonStackView)
         
-        self.skipToChatButton.edgesToSuperview(excluding: .top, usingSafeArea: true)
+        self.buttonStackView.edgesToSuperview(excluding: .top, insets: UIEdgeInsets(top: 0, left: 8, bottom: 0, right: 8), usingSafeArea: true)
     }
     
     @objc private func connectBarButtonTapped() {
         
-        if let selectedPeer = self.selectedPeer {
-            self.multiPeerManager.session.nearbyConnectionData(forPeer: selectedPeer) { [weak self] c, e in
+        selectedPeers.forEach { [weak self] selectedPeer in
+            
+            self?.multiPeerManager.session.nearbyConnectionData(forPeer: selectedPeer) { [weak self] c, e in
                 
                 guard let self = self else { return }
                 if let context = c {
@@ -139,8 +179,38 @@ class MainPeerToPeerViewController: UIViewController {
         }
     }
     
-    @objc func skipToChatButtonTapped() {
-        self.viewModel.toChat(selectedPeer: selectedPeer)
+    @objc private func startStopBrowsingButtonTapped() {
+        
+        if self.isBrowsing {
+            self.multiPeerManager.browser.stopBrowsingForPeers()
+            self.isBrowsing = false
+            self.startStopBrowsingButton.setTitle("Start Browsing", for: UIControl.State())
+        } else {
+            DispatchQueue.main.async {
+                self.foundPeers.removeAll()
+                self.tableView.reloadData()
+            }
+            self.multiPeerManager.browser.startBrowsingForPeers()
+            self.isBrowsing = true
+            self.startStopBrowsingButton.setTitle("Stop Browsing", for: UIControl.State())
+        }
+    }
+    
+    @objc private func startStopAdvertisingButtonTapped() {
+        
+        if self.isAdvertising {
+            self.multiPeerManager.advertiser.stopAdvertisingPeer()
+            self.isAdvertising = false
+            self.startStopAdvertisingButton.setTitle("Start Advertising", for: UIControl.State())
+        } else {
+            self.multiPeerManager.advertiser.startAdvertisingPeer()
+            self.isAdvertising = true
+            self.startStopAdvertisingButton.setTitle("Stop Advertising", for: UIControl.State())
+        }
+    }
+    
+    @objc private func skipToChatButtonTapped() {
+        self.viewModel.toChat()
     }
 }
 
@@ -169,10 +239,12 @@ extension MainPeerToPeerViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
         DispatchQueue.main.async {
+            
             let selectedPeer = self.foundPeers[indexPath.row]
-            self.selectedPeer = selectedPeer
+            self.selectedPeers.append(selectedPeer)
             self.connectBarButton.isEnabled = true
             self.skipToChatButton.isEnabled = true
+            
             if let cell = tableView.cellForRow(at: indexPath) {
                 cell.accessoryType = .checkmark
                 cell.selectionStyle = .none
@@ -183,11 +255,11 @@ extension MainPeerToPeerViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
         
         DispatchQueue.main.async {
-            self.selectedPeer = nil
-            if self.selectedPeer == nil {
-                self.connectBarButton.isEnabled = false
-                self.skipToChatButton.isEnabled = false
-            }
+            
+            self.selectedPeers.remove(at: indexPath.row)
+            self.connectBarButton.isEnabled = false
+            self.skipToChatButton.isEnabled = false
+
             if let cell = tableView.cellForRow(at: indexPath) {
                 cell.accessoryType = .none
                 cell.selectionStyle = .none
@@ -215,19 +287,25 @@ extension MainPeerToPeerViewController: MultiPeerConnectivityManagerDelegate {
     func didReceiveInvitation(fromPeer peer: MCPeerID, invitationHandler: @escaping ((Bool) -> Void)) {
         
         DispatchQueue.main.async {
-            self.isPassive = true
-            let alert = makeInvitationAlert(title: nil, message: "\(peer.displayName) wants to chat with you", peer: peer, handler: invitationHandler)
-            self.navigationViewController?.present(alert, animated: true)
+            if self.multiPeerManager.session.connectedPeers.isEmpty {
+                self.isPassive = true
+                let alert = makeInvitationAlert(title: nil, message: "\(peer.displayName) wants to chat with you", peer: peer, handler: invitationHandler)
+                self.navigationViewController?.present(alert, animated: true)
+            } else {
+                invitationHandler(false)
+            }
         }
     }
     
     func connectedWithPeer(peerID: MCPeerID) {
+        
         print("Connected Peers: \(self.connectedPeers.map { $0.displayName })")
         DispatchQueue.main.async {
+        
             if self.isPassive {
-                self.viewModel.toChat(selectedPeer: peerID)
+                self.viewModel.toChat()
             } else {
-                self.viewModel.toChat(selectedPeer: peerID)
+                self.viewModel.toChat()
             }
         }
     }

@@ -50,12 +50,13 @@
 		A8673EA223CF69BE000E7CE6 /* DetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8673EA123CF69BE000E7CE6 /* DetailViewModel.swift */; };
 		A8673EA423CF6E5C000E7CE6 /* RootFlowCoordinatorProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8673EA323CF6E5C000E7CE6 /* RootFlowCoordinatorProtocol.swift */; };
 		A86A590723D075CA001344F7 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A86A590623D075C9001344F7 /* SceneDelegate.swift */; };
+		A88661F424097B210067103E /* PassivePeerManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A88661F324097B210067103E /* PassivePeerManager.swift */; };
 		A89E7A3F23FAB80700737006 /* ChatMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = A89E7A3E23FAB80700737006 /* ChatMessage.swift */; };
 		A8B4F46C23F178B600C7FDAA /* PeersRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8B4F46B23F178B600C7FDAA /* PeersRepository.swift */; };
 		A8B4F47323F1933000C7FDAA /* ChatPeerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8B4F47223F1933000C7FDAA /* ChatPeerViewController.swift */; };
 		A8B4F47523F1934000C7FDAA /* ChatPeerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8B4F47423F1934000C7FDAA /* ChatPeerViewModel.swift */; };
 		A8E1422123FA9F66008262C0 /* Formatters.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8E1422023FA9F66008262C0 /* Formatters.swift */; };
-		A8E61D0423F5528100D56016 /* ConnectionPeerManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8E61D0323F5528100D56016 /* ConnectionPeerManager.swift */; };
+		A8E61D0423F5528100D56016 /* ActivePeerManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8E61D0323F5528100D56016 /* ActivePeerManager.swift */; };
 		A8E88FDC23FA94CD00C19548 /* Factory.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8E88FD923FA94CD00C19548 /* Factory.swift */; };
 		A8E88FDD23FA94CD00C19548 /* FactoryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8E88FDA23FA94CD00C19548 /* FactoryProtocol.swift */; };
 		A8E88FDE23FA94CD00C19548 /* ViewControllerDependencyResolver.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8E88FDB23FA94CD00C19548 /* ViewControllerDependencyResolver.swift */; };
@@ -126,12 +127,13 @@
 		A8673EA123CF69BE000E7CE6 /* DetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewModel.swift; sourceTree = "<group>"; };
 		A8673EA323CF6E5C000E7CE6 /* RootFlowCoordinatorProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootFlowCoordinatorProtocol.swift; sourceTree = "<group>"; };
 		A86A590623D075C9001344F7 /* SceneDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
+		A88661F324097B210067103E /* PassivePeerManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PassivePeerManager.swift; sourceTree = "<group>"; };
 		A89E7A3E23FAB80700737006 /* ChatMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatMessage.swift; sourceTree = "<group>"; };
 		A8B4F46B23F178B600C7FDAA /* PeersRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeersRepository.swift; sourceTree = "<group>"; };
 		A8B4F47223F1933000C7FDAA /* ChatPeerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatPeerViewController.swift; sourceTree = "<group>"; };
 		A8B4F47423F1934000C7FDAA /* ChatPeerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatPeerViewModel.swift; sourceTree = "<group>"; };
 		A8E1422023FA9F66008262C0 /* Formatters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Formatters.swift; sourceTree = "<group>"; };
-		A8E61D0323F5528100D56016 /* ConnectionPeerManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectionPeerManager.swift; sourceTree = "<group>"; };
+		A8E61D0323F5528100D56016 /* ActivePeerManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivePeerManager.swift; sourceTree = "<group>"; };
 		A8E88FD923FA94CD00C19548 /* Factory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Factory.swift; path = CouchbaseTest/Factory/Factory.swift; sourceTree = SOURCE_ROOT; };
 		A8E88FDA23FA94CD00C19548 /* FactoryProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FactoryProtocol.swift; path = CouchbaseTest/Factory/FactoryProtocol.swift; sourceTree = SOURCE_ROOT; };
 		A8E88FDB23FA94CD00C19548 /* ViewControllerDependencyResolver.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ViewControllerDependencyResolver.swift; path = CouchbaseTest/Factory/ViewControllerDependencyResolver.swift; sourceTree = SOURCE_ROOT; };
@@ -469,7 +471,8 @@
 			children = (
 				A855AC1B23F6B29100230CCC /* ConnectionPeerManagerProtocol.swift */,
 				A8F3E7CC23F1BE0300A9F5B4 /* PeerConnection.swift */,
-				A8E61D0323F5528100D56016 /* ConnectionPeerManager.swift */,
+				A88661F324097B210067103E /* PassivePeerManager.swift */,
+				A8E61D0323F5528100D56016 /* ActivePeerManager.swift */,
 			);
 			path = CouchbaseP2P;
 			sourceTree = "<group>";
@@ -671,7 +674,7 @@
 			files = (
 				A8B4F47323F1933000C7FDAA /* ChatPeerViewController.swift in Sources */,
 				A830993E23CF2EB400581FF5 /* MasterViewController.swift in Sources */,
-				A8E61D0423F5528100D56016 /* ConnectionPeerManager.swift in Sources */,
+				A8E61D0423F5528100D56016 /* ActivePeerManager.swift in Sources */,
 				A82155DC23DB460C0029E7D7 /* MessageTableViewCell.swift in Sources */,
 				A8673EA023CF696F000E7CE6 /* DetailViewController.swift in Sources */,
 				A84F309023D0A58C00FEEDC6 /* PersonRepositoryProtocol.swift in Sources */,
@@ -688,6 +691,7 @@
 				A84FCB8223D5F00A00B2044F /* DataBeer.swift in Sources */,
 				A84FCB8E23D60C0100B2044F /* BeerMasterViewModel.swift in Sources */,
 				A855AC1723F5B55300230CCC /* PeersUseCases.swift in Sources */,
+				A88661F424097B210067103E /* PassivePeerManager.swift in Sources */,
 				A8673E7C23CF5466000E7CE6 /* Person.swift in Sources */,
 				A8E88FDD23FA94CD00C19548 /* FactoryProtocol.swift in Sources */,
 				A8E1422123FA9F66008262C0 /* Formatters.swift in Sources */,

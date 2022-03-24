@@ -29,6 +29,7 @@ class ChatPeerViewModel {
     }
     
     func update(callback: @escaping(([ChatMessage]) -> Void)) {
+        print("Updating...")
         self.useCases.getAllStrings { callback($0) }
     }
     
