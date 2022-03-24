@@ -8,6 +8,7 @@
 
 import CouchbaseLiteSwift
 import Foundation
+import MultipeerConnectivity
 
 class PeerConnection: MessageEndpointConnection {
     

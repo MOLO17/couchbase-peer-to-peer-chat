@@ -106,26 +106,16 @@ extension RootFlowCoordinator: RootFlowCoordinatorProtocol {
         }
     }
     
-    func toActiveChat(passivePeer: MCPeerID) {
+    func toChat() {
         
-        DispatchQueue.main.async {
-            let vm = self.factory.getChatPeerViewModel(peerToPeerCoordinator: self.peerToPeerCoordinator)
-            let vc = self.factory.getActiveChatPeerViewController(viewModel: vm)
-            vc.passivePeer = passivePeer
-            if let nc = self.currentVC as? UINavigationController {
+        let vm = self.factory.getChatPeerViewModel(peerToPeerCoordinator: self.peerToPeerCoordinator)
+        let vc = self.factory.getChatPeerViewController(viewModel: vm)
+        
+        if let nc = self.currentVC as? UINavigationController {
+            if (nc.viewControllers.filter { $0 is ChatPeerViewController }.isEmpty) {
                 nc.pushViewController(vc, animated: true)
-            }
-        }
-    }
-    
-    func toPassiveChat(connectedPeer name: String) {
-      
-        DispatchQueue.main.async {
-            let vm = self.factory.getChatPeerViewModel(peerToPeerCoordinator: self.peerToPeerCoordinator)
-            let vc = self.factory.getPassiveChatPeerViewController(viewModel: vm)
-            if let nc = self.currentVC as? UINavigationController {
-                nc.pushViewController(vc, animated: true)
-                nc.navigationViewController?.present(makeInfoAlert(title: nil, message: "Connected to: \(name)"), animated: true)
+            } else {
+                nc.popViewController(animated: true)
             }
         }
     }

@@ -72,20 +72,13 @@ extension ViewControllerDependencyResolver: MainPeerToPeerFactory {
     }
 }
 
-extension ViewControllerDependencyResolver: ActiveChatPeerFactory {
+extension ViewControllerDependencyResolver: ChatPeerFactory {
     
-    func makeActiveChatPeerViewController(viewModel: ChatPeerViewModel) -> ActiveChatPeerViewController {
-        self.factory.getActiveChatPeerViewController(viewModel: viewModel)
+    func makeChatPeerViewController(viewModel: ChatPeerViewModel) -> ChatPeerViewController {
+        self.factory.getChatPeerViewController(viewModel: viewModel)
     }
     
     func makeChatPeerViewModel(peerToPeerCoordinator: PeerToPeerFlowCoordinatorProtocol) -> ChatPeerViewModel {
         self.factory.getChatPeerViewModel(peerToPeerCoordinator: peerToPeerCoordinator)
-    }
-}
-
-extension ViewControllerDependencyResolver: PassiveChatPeerFactory {
-    
-    func makePassiveChatPeerViewController(viewModel: ChatPeerViewModel) -> PassiveChatPeerViewController {
-        self.factory.getPassiveChatPeerViewController(viewModel: viewModel)
     }
 }

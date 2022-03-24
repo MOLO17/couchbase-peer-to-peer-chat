@@ -117,19 +117,15 @@ class Factory: FactoryProtocol {
     }
     
     func getMainPeerToPeerViewModel(peerToPeerCoordinator: PeerToPeerFlowCoordinatorProtocol) -> MainPeerToPeerViewModel {
-        MainPeerToPeerViewModel(peerToPeerCoordinator: peerToPeerCoordinator)
+        MainPeerToPeerViewModel(peersUseCases: self.getPeersUseCases(), peerToPeerCoordinator: peerToPeerCoordinator)
     }
     
     
     // MARK: - Chat
-    func getActiveChatPeerViewController(viewModel: ChatPeerViewModel) -> ActiveChatPeerViewController {
-        ActiveChatPeerViewController(viewModel: viewModel)
+    func getChatPeerViewController(viewModel: ChatPeerViewModel) -> ChatPeerViewController {
+        ChatPeerViewController(viewModel: viewModel)
     }
     
-    func getPassiveChatPeerViewController(viewModel: ChatPeerViewModel) -> PassiveChatPeerViewController {
-        PassiveChatPeerViewController(viewModel: viewModel)
-    }
-
     func getChatPeerViewModel(peerToPeerCoordinator: PeerToPeerFlowCoordinatorProtocol) -> ChatPeerViewModel {
         ChatPeerViewModel(peerToPeerCoordinator: peerToPeerCoordinator, peersUseCases: self.getPeersUseCases())
     }

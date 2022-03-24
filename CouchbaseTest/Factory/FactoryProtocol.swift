@@ -42,7 +42,6 @@ protocol FactoryProtocol {
     func getMainPeerToPeerViewModel(peerToPeerCoordinator: PeerToPeerFlowCoordinatorProtocol) -> MainPeerToPeerViewModel
     
     // MARK: - Chat
-    func getActiveChatPeerViewController(viewModel: ChatPeerViewModel) -> ActiveChatPeerViewController
-    func getPassiveChatPeerViewController(viewModel: ChatPeerViewModel) -> PassiveChatPeerViewController
+    func getChatPeerViewController(viewModel: ChatPeerViewModel) -> ChatPeerViewController
     func getChatPeerViewModel(peerToPeerCoordinator: PeerToPeerFlowCoordinatorProtocol) -> ChatPeerViewModel
 }

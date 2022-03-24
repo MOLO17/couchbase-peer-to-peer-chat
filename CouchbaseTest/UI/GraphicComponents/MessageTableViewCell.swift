@@ -67,7 +67,9 @@ class MessageTableViewCell: UITableViewCell {
     
     override func prepareForReuse() {
         super.prepareForReuse()
+        
         self.containerView.removeFromSuperview()
+        self.accessoryType = .none
     }
     
     func setupCell(layout: Layout) {

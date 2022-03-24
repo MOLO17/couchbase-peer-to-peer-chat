@@ -35,7 +35,7 @@ class PeersRepository {
         
         self.token = query.addChangeListener { (query) in
             
-            let messages = query.results?.allResults().compactMap(ModelMapper.resultsToDataChatMessage)
+            let messages = query.results?.allResults().compactMap(ModelMapper.resultsToDataChatMessage).sorted(by: { $0.creationDate < $1.creationDate })
             messages.flatMap(callback)
         }
     }
@@ -51,7 +51,7 @@ class PeersRepository {
         
         self.token = query.addChangeListener { (query) in
             
-            let messages = query.results?.allResults().compactMap(ModelMapper.resultsToDataChatMessage)
+            let messages = query.results?.allResults().compactMap(ModelMapper.resultsToDataChatMessage).sorted(by: { $0.creationDate < $1.creationDate })
             messages.flatMap(callback)
         }
     }
