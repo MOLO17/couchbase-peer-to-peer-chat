@@ -10,7 +10,5 @@ import Foundation
 import MultipeerConnectivity
 
 protocol PeerToPeerFlowCoordinatorProtocol {
-    
-    func toActiveChat(passivePeer: MCPeerID)
-    func toPassiveChat(connectedPeer: String)
+    func toChat(selectedPeer: MCPeerID?)
 }

@@ -1,5 +1,5 @@
 //
-//  PeerManagerProtocol.swift
+//  ConnectionPeerManagerProtocol.swift
 //  CouchbaseTest
 //
 //  Created by Gabriele Nardi on 14/02/2020.
@@ -8,11 +8,11 @@
 
 import CouchbaseLiteSwift
 import Foundation
+import MultipeerConnectivity
 
-protocol PeerManagerProtocol {
+protocol ConnectionPeerManagerProtocol {
     
     // MARK: - Methods
-    func sendToEndpoint(message: Message, completion: ((Error?) -> Void)?)
     func didReceive(message: Message)
-    func stopReplicationSync()
+    func stopReplicationSync(forTarget: MCPeerID)
 }

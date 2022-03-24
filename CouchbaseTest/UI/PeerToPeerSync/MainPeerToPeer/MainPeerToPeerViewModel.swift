@@ -20,11 +20,7 @@ class MainPeerToPeerViewModel {
         self.peerToPeerCoordinator = peerToPeerCoordinator
     }
     
-    func toActivePeer(passivePeers: [MCPeerID]) {
-        self.peerToPeerCoordinator.toActiveChat(passivePeers: passivePeers)
-    }
-    
-    func toPassivePeer(connectedPeer name: String) {
-        self.peerToPeerCoordinator.toPassiveChat(connectedPeer: name)
+    func toChat(selectedPeer: MCPeerID?) {
+        self.peerToPeerCoordinator.toChat(selectedPeer: selectedPeer)
     }
 }
