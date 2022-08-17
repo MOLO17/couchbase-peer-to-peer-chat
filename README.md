@@ -1,29 +1,6 @@
-# README #
+This repo belongs to the article 
 
-This README would normally document whatever steps are necessary to get your application up and running.
+#Discover Couchbase: Couchbase Peer-to-Peer Sync
+This article is part of a series of articles intended to describe the capabilities of Couchbase, Couchbase lite and Sync Gateway
 
-### What is this repository for? ###
-
-* Quick summary
-* Version
-* [Learn Markdown](https://bitbucket.org/tutorials/markdowndemo)
-
-### How do I get set up? ###
-
-* Summary of set up
-* Configuration
-* Dependencies
-* Database configuration
-* How to run tests
-* Deployment instructions
-
-### Contribution guidelines ###
-
-* Writing tests
-* Code review
-* Other guidelines
-
-### Who do I talk to? ###
-
-* Repo owner or admin
-* Other community or team contact
+https://molo17.com/en/2020/03/couchbase-peer-to-peer-sync-en/
